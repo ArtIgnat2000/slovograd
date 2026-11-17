@@ -143,6 +143,7 @@
     border-top:7px solid var(--c);border-radius:18px;padding:14px 12px;text-align:center;box-shadow:var(--shadow-sm)
   }
   .formula-chip b{display:block;font-size:1.05rem}
+  .formula-piece{display:inline-block;margin-top:6px;font-size:1.35rem;line-height:1.3}
   .formula-chip small{display:block;color:var(--muted);font-size:.78rem;margin-top:4px}
   .formula-chip .n{
     display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;
@@ -173,6 +174,14 @@
   .card h3{margin:0;font-size:1.45rem;letter-spacing:-.02em}
   .card .where{display:inline-block;background:var(--soft);color:var(--cd);border-radius:999px;padding:4px 11px;font-size:.78rem;font-weight:800;margin-bottom:12px}
   .card .def{margin-bottom:14px}
+  .lesson-example{
+    background:#FFF9EE;border:2px solid var(--line);border-inline-start:5px solid var(--c);
+    border-radius:16px;padding:12px 14px;margin-bottom:12px
+  }
+  .lesson-example .example-label{color:var(--cd);margin-bottom:4px}
+  .lesson-word{font-size:1.45rem;font-weight:900;line-height:1.35}
+  .lesson-example p{margin:6px 0 0;font-size:.94rem}
+  .lesson-example .chip-row{justify-content:flex-start;margin-top:10px}
   .example-box{background:#fff;border:2px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
   .example-label{font-size:.75rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
   .wordline{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:7px}
@@ -486,7 +495,7 @@
     </div>
 
     <div class="hero-examples">
-      <div class="kicker">Сравни два слова</div>
+      <div class="kicker">Слово урока: посадка</div>
       <h2>Где стоит корень?</h2>
       <div class="hero-example">
         <div class="hero-word"><span class="hl r">сад</span></div>
@@ -494,7 +503,7 @@
       </div>
       <div class="hero-example">
         <div class="hero-word"><span class="hl g">по</span><span class="hl r">сад</span>ка</div>
-        <p>Тот же корень <b>-сад-</b> стоит после приставки <b>по-</b>.</p>
+        <p>Тот же корень <b>-сад-</b> стоит после приставки <b>по-</b>. Здесь речь о посадке семян.</p>
       </div>
     </div>
 
@@ -509,16 +518,16 @@
     <div class="section-head" style="text-align:center">
       <div class="kicker">Главное правило</div>
       <h2 id="formula-title">Порядок частей слова</h2>
-      <p class="lead" style="margin-inline:auto">Если в слове есть все четыре части, они стоят в таком порядке.</p>
+      <p class="lead" style="margin-inline:auto">В слове «посадка» есть все четыре части. Вот в каком порядке они стоят.</p>
     </div>
     <div class="formula-row">
-      <div class="formula-chip" style="--c:var(--green)"><span class="n">1</span><b>Приставка</b><small>перед корнем</small></div>
+      <div class="formula-chip" style="--c:var(--green)"><span class="n">1</span><b>Приставка</b><span class="hl g formula-piece">по</span><small>перед корнем</small></div>
       <div class="arrow" aria-hidden="true">→</div>
-      <div class="formula-chip" style="--c:var(--red)"><span class="n">2</span><b>Корень</b><small>самый главный</small></div>
+      <div class="formula-chip" style="--c:var(--red)"><span class="n">2</span><b>Корень</b><span class="hl r formula-piece">сад</span><small>самый главный</small></div>
       <div class="arrow" aria-hidden="true">→</div>
-      <div class="formula-chip" style="--c:var(--blue)"><span class="n">3</span><b>Суффикс</b><small>после корня</small></div>
+      <div class="formula-chip" style="--c:var(--blue)"><span class="n">3</span><b>Суффикс</b><span class="hl b formula-piece">к</span><small>после корня</small></div>
       <div class="arrow" aria-hidden="true">→</div>
-      <div class="formula-chip" style="--c:var(--purple)"><span class="n">4</span><b>Окончание</b><small>хвостик слова</small></div>
+      <div class="formula-chip" style="--c:var(--purple)"><span class="n">4</span><b>Окончание</b><span class="hl p formula-piece">а</span><small>хвостик слова</small></div>
     </div>
     <p class="callout">💡 <b>Корень есть в каждом слове.</b> Остальных частей может не быть. Если окончание нулевое, его обозначают квадратиком <b>□</b>.</p>
   </section>
@@ -528,7 +537,7 @@
     <div class="section-head">
       <div class="kicker">Как в тетради</div>
       <h2 id="symbols-title">Школьные значки ✏️</h2>
-      <p class="lead">Когда разбираешь слово в тетради, обозначай каждую часть своим значком. Значки над буквами показывают приставку, корень и суффикс; окончание обводят, а основу выделяют снизу.</p>
+      <p class="lead">Посмотри, как обозначить части слова «посадка» в тетради. Значки над буквами показывают приставку, корень и суффикс; окончание обводят, а основу выделяют снизу.</p>
     </div>
     <div class="paper">
       <div class="symbol-grid">
@@ -539,7 +548,7 @@
         <div class="symbol-card"><div class="symbol-icon"><svg viewBox="0 0 48 32" aria-hidden="true"><path d="M4 7 V25 H44 V7" fill="none" stroke="currentColor" stroke-width="3"/></svg></div><b>Основа</b><small>линия снизу, без окончания</small></div>
       </div>
       <div class="school-example">
-        <b>Попробуем вместе: посадка 🌱</b>
+        <b>Слово урока: посадка 🌱</b>
         <div class="school-word" id="school-example-word" aria-label="Посадка: по — приставка, сад — корень, к — суффикс, а — окончание. Основа посадк."></div>
         <p class="school-caption">Уголок над <b>по</b>, дуга над <b>сад</b>, домик над <b>к</b>. Буква <b>а</b> в рамке, а под основой <b>посадк</b> — линия.</p>
       </div>
@@ -552,7 +561,7 @@
     <div class="section-head">
       <div class="kicker">Знакомимся</div>
       <h2 id="parts-title">Четыре части слова</h2>
-      <p class="lead">Нажми на «Ещё примеры», если хочешь посмотреть побольше слов. А в карточках с кнопками можно поиграть прямо сейчас!</p>
+      <p class="lead">Во всех четырёх карточках разбираем одно слово — «посадка». Потом сравни его с другими словами и попробуй задания с кнопками.</p>
     </div>
 
     <div class="cards">
@@ -564,14 +573,19 @@
           <h3 id="h-prefix">Приставка</h3>
         </div>
         <span class="where">🟢 стоит ПЕРЕД корнем</span>
-        <p class="def">Часть слова, которая стоит перед корнем и <b>меняет смысл</b>: куда идти, откуда, как именно. Приставка пишется <b>слитно</b> со словом.</p>
+        <p class="def">Приставка стоит перед корнем и помогает образовать <b>новое слово</b>. Она пишется <b>слитно</b> со словом.</p>
+        <div class="lesson-example">
+          <div class="example-label">Слово урока</div>
+          <div class="lesson-word"><span class="hl g">по</span>садка</div>
+          <p>Перед корнем <b>-сад-</b> стоит приставка <b>по-</b>.</p>
+        </div>
         <div class="example-box">
           <div class="example-label">Берём слово «ход» и добавляем приставку</div>
           <div class="wordline"><span class="seg r">ход</span><span class="arrow-mini">→</span><span class="seg g">пере</span><span class="seg r">ход</span><span class="seg zero">□</span></div>
           <div class="wordline"><span class="seg g">в</span><span class="seg r">ход</span><span class="arrow-mini">·</span><span class="seg g">вы</span><span class="seg r">ход</span><span class="arrow-mini">·</span><span class="seg g">у</span><span class="seg r">ход</span></div>
         </div>
         <div class="mini-game">
-          <div class="example-label" style="text-align:center">Нажми на приставку — слово оживёт</div>
+          <div class="example-label" style="text-align:center">Попробуй разные приставки со словом «ход»</div>
           <div class="word"><span class="seg g" id="pfx">в</span><span class="seg r">ход</span><span class="seg zero" title="невидимое окончание">□</span></div>
           <p id="pfx-meaning" role="status">🚪 «вход» — заходишь внутрь.</p>
           <div class="chip-row" id="pfx-buttons">
@@ -584,11 +598,10 @@
             <button class="chip" data-p="по">по-</button>
           </div>
         </div>
-        <p class="tip"><b>Запомни:</b> приставка — как стрелка направления 🚦. Она делает <i>новое слово</i>: ход → переход.</p>
+        <p class="tip"><b>Сравни:</b> <b>в</b>ход — идём внутрь, <b>вы</b>ход — идём наружу. Здесь приставки подсказывают направление.</p>
         <details>
           <summary>Ещё примеры</summary>
           <ul>
-            <li><span class="hl g">по</span>садка — посадили семечко 🌱</li>
             <li><span class="hl g">пере</span>лесок — маленький лесок между полями 🌲</li>
             <li><span class="hl g">при</span>город — город рядом с большим городом 🏘️</li>
             <li>Не путай: «<b>у</b> дома» — предлог пишется отдельно, а «<b>у</b>ход» — приставка слитно!</li>
@@ -603,14 +616,19 @@
           <h3 id="h-root">Корень</h3>
         </div>
         <span class="where">🔴 главная часть слова</span>
-        <p class="def">В корне спрятан <b>общий смысл</b> всех родственных слов. Без корня не бывает ни одного слова! Поэтому он главный, как сердечко ❤️.</p>
+        <p class="def">В корне — <b>общий смысл</b> родственных слов. Корень есть в каждом слове, но не всегда в начале.</p>
+        <div class="lesson-example">
+          <div class="example-label">Слово урока</div>
+          <div class="lesson-word">по<span class="hl r">сад</span>ка</div>
+          <p>Сравни: <b>сад</b>, <b>садик</b> (маленький сад), <b>посадка</b> семян. Все три слова связаны с растениями. Их общий корень — <b>-сад-</b>.</p>
+        </div>
         <div class="example-box">
           <div class="example-label">Слова-родственники: ищем одинаковую часть</div>
           <div class="wordline"><span class="seg r">лес</span><span class="seg zero">□</span><span class="arrow-mini">·</span><span class="seg r">лес</span><span class="seg b">ок</span><span class="seg zero">□</span><span class="arrow-mini">·</span><span class="seg r">лес</span><span class="seg b">н</span><span class="seg p">ой</span></div>
           <div class="wordline"><span class="seg r">лес</span><span class="seg b">ник</span><span class="seg zero">□</span><span class="arrow-mini">·</span><span class="seg g">пере</span><span class="seg r">лес</span><span class="seg b">ок</span><span class="seg zero">□</span></div>
           <p style="margin:9px 0 0;font-size:.88rem;color:var(--muted)">Везде повторяется <b>-лес-</b> и везде речь про лес. Значит, это корень.</p>
         </div>
-        <p class="tip"><b>Как проверить:</b> подбери 2–3 родственных слова. Общая часть и есть корень: сад, садик, посадка → корень <b>-сад-</b>.</p>
+        <p class="tip"><b>Как проверить:</b> подбери 2–3 родственных слова. Ищи общую часть, которая связывает их по смыслу.</p>
         <details>
           <summary>Ещё примеры</summary>
           <ul>
@@ -629,9 +647,14 @@
           <h3 id="h-suffix">Суффикс</h3>
         </div>
         <span class="where">🔵 стоит ПОСЛЕ корня, перед окончанием</span>
-        <p class="def">Часть слова, которая делает <b>новое слово</b>: превращает большой предмет в маленький, называет детёныша или профессию.</p>
+        <p class="def">С помощью суффикса можно образовать <b>новое слово</b>: назвать действие, маленький предмет, детёныша или профессию.</p>
+        <div class="lesson-example">
+          <div class="example-label">Слово урока</div>
+          <div class="lesson-word">посад<span class="hl b">к</span>а</div>
+          <p>Между корнем <b>-сад-</b> и окончанием <b>-а</b> стоит суффикс <b>-к-</b>. «Посадка» называет действие: сажаем семена.</p>
+        </div>
         <div class="example-box">
-          <div class="example-label">Волшебные «колпачки»</div>
+          <div class="example-label">Суффиксы в других словах</div>
           <div class="wordline"><span class="seg r">дом</span><span class="arrow-mini">→</span><span class="seg r">дом</span><span class="seg b">ик</span><span class="seg zero">□</span><span style="font-size:.9rem;color:var(--muted)">маленький дом</span></div>
           <div class="wordline"><span class="seg r">кот</span><span class="arrow-mini">→</span><span class="seg r">кот</span><span class="seg b">ёнок</span><span class="seg zero">□</span><span style="font-size:.9rem;color:var(--muted)">детёныш</span></div>
           <div class="wordline"><span class="seg r">лес</span><span class="arrow-mini">→</span><span class="seg r">лес</span><span class="seg b">ник</span><span class="seg zero">□</span><span style="font-size:.9rem;color:var(--muted)">профессия</span></div>
@@ -642,7 +665,6 @@
           <ul>
             <li>гриб → гриб<span class="hl b">ок</span> 🍄, стол → стол<span class="hl b">ик</span> 🪑</li>
             <li>сад → сад<span class="hl b">ик</span> 🧒, лес → лес<span class="hl b">н</span>ой 🐿️</li>
-            <li>по<span class="hl r">сад</span><span class="hl b">к</span>а — тут тоже суффикс <b>-к-</b>!</li>
             <li>В слове может быть два суффикса, но в 2 классе мы пока берём один 🙂</li>
           </ul>
         </details>
@@ -656,16 +678,17 @@
         </div>
         <span class="where">🟣 хвостик в конце слова</span>
         <p class="def">Часть слова, которая <b>меняется</b>, чтобы слова дружили в предложении. Окончание меняет только <i>форму</i> слова, а смысл и корень остаются теми же.</p>
-        <div class="mini-game">
-          <div class="example-label" style="text-align:center">Меняем хвостик — книга остаётся книгой</div>
-          <div class="word"><span class="seg r">книг</span><span class="seg p" id="ending-letter">а</span></div>
-          <p id="ending-sentence" role="status">У меня <b>книга</b>.</p>
-          <div class="chip-row" id="ending-buttons">
-            <button class="chip active" data-e="а">-а</button>
-            <button class="chip" data-e="и">-и</button>
-            <button class="chip" data-e="у">-у</button>
-            <button class="chip" data-e="ой">-ой</button>
-            <button class="chip" data-e="е">-е</button>
+        <div class="lesson-example">
+          <div class="example-label">Слово урока</div>
+          <div class="lesson-word">посадк<span class="hl p" id="ending-letter">а</span></div>
+          <p>В форме «посадка» окончание <b>-а</b>. Попробуй поменять окончание: часть <b>посадк</b> не изменится.</p>
+          <p id="ending-sentence" role="status">Началась <b>посадка</b> семян.</p>
+          <div class="chip-row" id="ending-buttons" role="group" aria-label="Выбери окончание для слова «посадка»">
+            <button class="chip active" type="button" data-e="а" aria-pressed="true">-а</button>
+            <button class="chip" type="button" data-e="и" aria-pressed="false">-и</button>
+            <button class="chip" type="button" data-e="у" aria-pressed="false">-у</button>
+            <button class="chip" type="button" data-e="ой" aria-pressed="false">-ой</button>
+            <button class="chip" type="button" data-e="е" aria-pressed="false">-е</button>
           </div>
         </div>
         <div class="example-box">
@@ -673,7 +696,7 @@
           <p style="margin:0;font-size:.94rem">Иногда окончание <b>не видно</b>: дом<b>□</b>, стол<b>□</b>, домик<b>□</b>. Мы рисуем пустой квадратик и называем его <b>нулевым окончанием</b>.</p>
           <div class="wordline" style="margin-top:9px"><span class="seg r">дом</span><span class="seg zero">□</span><span class="arrow-mini">→</span><span class="seg r">дом</span><span class="seg p">а</span><span style="font-size:.9rem;color:var(--muted)">«около дома» — окончание появилось!</span></div>
         </div>
-        <p class="tip"><b>Основа</b> — это всё слово <u>без окончания</u>: приставка + корень + суффикс. В «книгой» основа — <b>книг</b>.</p>
+        <p class="tip"><b>Основа</b> — это всё слово <u>без окончания</u>. В слове «посадка» основа — <b>посадк</b>.</p>
         <details>
           <summary>Ещё примеры</summary>
           <ul>
@@ -692,7 +715,7 @@
     <div class="section-head">
       <div class="kicker">Собираем сами</div>
       <h2 id="constructor-title">Конструктор слов 🧱</h2>
-      <p class="lead">Выбери части слова из списков — и посмотри, что получилось. Если слова в нашем словарике нет, мы честно скажем и подскажем похожее!</p>
+      <p class="lead">Начинаем со слова «посадка». Попробуй изменить его окончание или собрать другое слово. Если сочетания нет в нашем словарике, мы подскажем похожее слово.</p>
     </div>
 
     <div class="builder">
@@ -758,9 +781,9 @@
       <p>Не угадываем части на глаз: изменяем слово и подбираем родственные слова.</p>
       <div class="school-word" id="workshop-example" aria-label="Посадка: приставка по, корень сад, суффикс к, окончание а; основа посадк"></div>
       <div class="lesson-steps">
-        <div class="lesson-step"><span class="step-tag">Шаг 1 · окончание</span><h3>Измени слово</h3><p>Посадк<b>а</b> → посадк<b>и</b> → посадк<b>у</b>. Меняется <b>-а</b>: это окончание. Обведи его рамкой.</p></div>
-        <div class="lesson-step"><span class="step-tag">Шаг 2 · корень</span><h3>Найди родственников</h3><p>Посадка, посадить, садить. Общая часть <b>-сад-</b> связана со смыслом «сажать». Над корнем нарисуй дугу.</p></div>
-        <div class="lesson-step"><span class="step-tag">Шаг 3 · приставка</span><h3>Посмотри перед корнем</h3><p>Перед корнем осталось <b>по-</b>. Это приставка. Обозначь её уголком сверху.</p></div>
+        <div class="lesson-step"><span class="step-tag">Шаг 1 · окончание</span><h3>Измени слово</h3><p>Посадк<b>а</b> → посадк<b>и</b> → посадк<b>у</b>. Меняется последняя часть. В форме «посадка» окончание <b>-а</b>. Обведи его рамкой.</p></div>
+        <div class="lesson-step"><span class="step-tag">Шаг 2 · корень</span><h3>Найди родственников</h3><p>Сравни слова «сад», «садик» и «посадка». Они связаны с растениями, общий корень — <b>-сад-</b>. Над корнем нарисуй дугу.</p></div>
+        <div class="lesson-step"><span class="step-tag">Шаг 3 · приставка</span><h3>Посмотри перед корнем</h3><p>Перед корнем стоит <b>по-</b>. Это приставка. Обозначь её уголком сверху.</p></div>
         <div class="lesson-step"><span class="step-tag">Шаг 4 · суффикс</span><h3>Посмотри после корня</h3><p>Между корнем и окончанием стоит <b>-к-</b>. Это суффикс. Нарисуй над ним домик. Основа — <b>посадк</b>.</p></div>
       </div>
       <p class="tip" style="background:#fff3d6">💡 Сначала ищем окончание и корень, а потом — приставку и суффикс. В слове может не быть приставки или суффикса!</p>
@@ -785,12 +808,12 @@
     </div>
     <div class="paper">
       <h3>Два условия родства</h3>
-      <p>Однокоренные слова имеют <b>общий корень</b> и <b>связаны по смыслу</b>. Например, <b>лес, лесок, лесной</b> — разные слова об одном семействе: у них общий корень <b>-лес-</b>.</p>
-      <div class="family-rule"><b>Важное отличие:</b> приставка и суффикс помогают образовать <b>новое слово</b>, а окончание меняет лишь <b>форму того же слова</b>. Сравни: <b>дом → домик</b> — новое слово; <b>дом → дома</b> — форма слова «дом».</div>
+      <p>Однокоренные слова имеют <b>общий корень</b> и <b>связаны по смыслу</b>. Например, <b>сад, садик и посадка</b> — слова с общим корнем <b>-сад-</b>. Они связаны по смыслу: в саду сажают растения.</p>
+      <div class="family-rule"><b>Важное отличие:</b> приставка и суффикс помогают образовать <b>новое слово</b>, а окончание меняет лишь <b>форму того же слова</b>. Сравни: <b>сад → садик</b> — новое слово; <b>посадка → посадки</b> — форма того же слова.</div>
 
       <div class="family-explorer" id="family-explorer">
         <div class="family-toolbar"><h3>🌳 Рассмотри семьи слов</h3><button class="family-toggle" id="family-symbol-toggle" type="button" aria-pressed="true">✏️ Значки: включены</button></div>
-        <p class="family-description">Выбери семью. В каждой строке показаны части слова и объяснение. Нажми на кнопку значков, чтобы скрыть или снова показать школьный разбор.</p>
+        <p class="family-description">Начни с семьи «Сад», а потом выбери другую. В каждой строке показаны части слова и объяснение. Нажми на кнопку значков, чтобы скрыть или снова показать школьный разбор.</p>
         <div class="family-tabs" id="family-tabs" role="group" aria-label="Выбери семью однокоренных слов"></div>
         <div id="family-family-description" class="family-description" aria-live="polite"></div>
         <div class="family-table" id="family-table"></div>
@@ -817,7 +840,7 @@
     <div class="section-head" style="text-align:center">
       <div class="kicker">Проверь себя</div>
       <h2 id="game-title">Угадай часть слова 🔍</h2>
-      <p class="lead" style="margin-inline:auto">8 коротких вопросов. Ошибиться можно — мы всё равно всё объясним!</p>
+      <p class="lead" style="margin-inline:auto">8 коротких вопросов. Сначала найди четыре части слова «посадка», а потом попробуй другие примеры.</p>
     </div>
 
     <div class="paper quiz" id="quiz">
@@ -843,18 +866,18 @@
     <div class="section-head">
       <div class="kicker">Шпаргалка</div>
       <h2 id="memo-title">Как разобрать слово по составу</h2>
-      <p class="lead">Делай шаги по порядку — и ни одна часть не потеряется. Можно распечатать и повесить над столом 📌</p>
+      <p class="lead">Вспомни разбор слова «посадка»: найди части по шагам. Памятку можно распечатать и повесить над столом 📌</p>
     </div>
 
     <div class="memo-grid">
       <div class="paper">
         <ol class="steps">
-          <li><span class="n"></span><div><b>1. Измени слово — найди окончание</b><p>книга → книги → книгой: окончания -а, -и, -ой. Дом□ → дома → дому: в форме «дом» окончание нулевое. Если слово совсем не меняется, как «метро», окончания нет.</p></div></li>
-          <li><span class="n"></span><div><b>2. Отдели основу</b><p>Всё, что осталось без окончания, — основа. В слове «книгой» основа «книг».</p></div></li>
-          <li><span class="n"></span><div><b>3. Подбери родственные слова — найди корень</b><p>лес, лесок, лесной, лесник. Общая часть <b>-лес-</b> — корень. Он есть всегда!</p></div></li>
-          <li><span class="n"></span><div><b>4. Посмотри налево от корня</b><p>Если перед корнем есть часть, это приставка: <b>пере</b>лесок, <b>по</b>садка.</p></div></li>
-          <li><span class="n"></span><div><b>5. Посмотри направо от корня</b><p>Часть между корнем и окончанием — суффикс: лес<b>ник</b>□, перелес<b>ок</b>□.</p></div></li>
-          <li><span class="n"></span><div><b>6. Проверь себя</b><p>Прочитай по порядку: приставка → корень → суффикс → окончание. Все части на своих местах? Молодец! 🌟</p></div></li>
+          <li><span class="n"></span><div><b>1. Измени слово — найди окончание</b><p>Посадк<strong>а</strong> → посадк<strong>и</strong> → посадк<strong>у</strong>. В форме «посадка» окончание <strong>-а</strong>.</p></div></li>
+          <li><span class="n"></span><div><b>2. Отдели основу</b><p>Убери окончание -а. Останется <strong>посадк</strong> — основа слова «посадка».</p></div></li>
+          <li><span class="n"></span><div><b>3. Подбери родственные слова — найди корень</b><p>Сравни слова «сад», «садик» и «посадка». Их общий корень — <strong>-сад-</strong>.</p></div></li>
+          <li><span class="n"></span><div><b>4. Посмотри перед корнем</b><p>Перед корнем -сад- стоит <strong>по-</strong>. Это приставка.</p></div></li>
+          <li><span class="n"></span><div><b>5. Посмотри после корня</b><p>Между корнем и окончанием стоит <strong>-к-</strong>. Это суффикс.</p></div></li>
+          <li><span class="n"></span><div><b>6. Проверь себя</b><p>Прочитай части по порядку: <strong>по</strong> / <strong>сад</strong> / <strong>к</strong> / <strong>а</strong>. Получилось слово «посадка».</p></div></li>
         </ol>
       </div>
 
@@ -863,8 +886,8 @@
         <ul>
           <li><b>Приставка ≠ предлог.</b> «<b>у</b> дома» пишем отдельно, «<b>у</b>ход» — слитно.</li>
           <li><b>Суффикс после корня</b>, приставка до корня. Перепутать легко, а всё просто: слева / справа.</li>
-          <li><b>Окончание не меняет смысла.</b> «Книга» и «книги» — одно и то же слово, разные формы.</li>
-          <li><b>Не все части обязательны.</b> В слове «дом» только корень -дом- и нулевое окончание □.</li>
+          <li><b>Окончание меняет форму слова.</b> «Посадка» и «посадки» — не два разных слова.</li>
+          <li><b>Нулевое окончание и отсутствие окончания — не одно и то же.</b> Дом□ → дома → дому: у формы «дом» окончание нулевое. Слово «метро» не меняется: окончания нет.</li>
         </ul>
         <div class="order">
           <span class="seg g">приставка</span>→<span class="seg r">корень</span>→<span class="seg b">суффикс</span>→<span class="seg p">окончание</span>
@@ -887,6 +910,7 @@
   "use strict";
   const $  = (s, root) => (root || document).querySelector(s);
   const $$ = (s, root) => Array.from((root || document).querySelectorAll(s));
+  const LESSON_PARTS = ["по", "сад", "к", "а"];
 
   /* ============ 1. Игра «приставки» в карточке ============ */
   const prefixInfo = {
@@ -908,16 +932,19 @@
 
   /* ============ 2. Игра «окончания» в карточке ============ */
   const endingInfo = {
-    "а":  "У меня <b>книга</b>.",
-    "и":  "На полке <b>книги</b>. Нет <b>книги</b>.",
-    "у":  "Я читаю <b>книгу</b>.",
-    "ой": "Я любуюсь <b>книгой</b> ✨",
-    "е":  "Я пишу о <b>книге</b> ✍️"
+    "а":  "Началась <b>посадка</b> семян.",
+    "и":  "Грядка готова для <b>посадки</b>.",
+    "у":  "Ребята начали <b>посадку</b> семян.",
+    "ой": "Ребята заняты <b>посадкой</b> семян.",
+    "е":  "Учитель рассказал о <b>посадке</b> семян."
   };
   $("#ending-buttons").addEventListener("click", e => {
     const btn = e.target.closest("button[data-e]");
     if(!btn) return;
-    $$("#ending-buttons .chip").forEach(b => b.classList.toggle("active", b === btn));
+    $$("#ending-buttons .chip").forEach(b => {
+      b.classList.toggle("active", b === btn);
+      b.setAttribute("aria-pressed", String(b === btn));
+    });
     $("#ending-letter").textContent = btn.dataset.e;
     $("#ending-sentence").innerHTML = endingInfo[btn.dataset.e];
   });
@@ -992,9 +1019,12 @@
   add("", "сад", "", "", "🌳", "«Сад». Корень -сад- и □.");
   add("", "сад", "ик", "", "🧒", "«Садик» — маленький сад или детский садик.");
   add("", "сад", "ов", "ый", "🌻", "«Садовый» — например, садовые цветы. Суффикс -ов- и окончание -ый.");
-  add("по", "сад", "к", "а", "🌱", "«Посадка семян весной». Здесь есть ВСЕ четыре части слова!", "по- приставка, -сад- корень, -к- суффикс, -а окончание.");
+  add(...LESSON_PARTS, "🌱", "«Посадка семян весной». Здесь есть ВСЕ четыре части слова!", "по- приставка, -сад- корень, -к- суффикс, -а окончание.");
   add("пере", "сад", "к", "а", "🚌", "«Пересадка на другой автобус». Тоже все четыре части!");
   add("по", "сад", "к", "и", "🌱🌱", "«Время посадки семян». Окончание -и.");
+  add("по", "сад", "к", "у", "🌱", "«Ребята начали посадку семян». Окончание -у.");
+  add("по", "сад", "к", "ой", "🌱", "«Ребята заняты посадкой семян». Окончание -ой.");
+  add("по", "сад", "к", "е", "🌱", "«Учитель рассказал о посадке семян». Окончание -е.");
   add("", "сад", "", "а", "🚶", "«Дорожка сада». Окончание -а.");
   add("", "сад", "", "ы", "🏙️", "«Городские сады». Окончание -ы.");
   add("", "сад", "", "у", "🍎", "«Идём по саду». Окончание -у.");
@@ -1081,7 +1111,9 @@
   });
 
   const PRESETS = [
-    ["Посадка",   ["по", "сад", "к", "а"]],
+    ["Посадка",   LESSON_PARTS],
+    ["Сад",       ["", "сад", "", ""]],
+    ["Садик",     ["", "сад", "ик", ""]],
     ["Домик",     ["", "дом", "ик", ""]],
     ["Переход",   ["пере", "ход", "", ""]],
     ["Книгой",    ["", "книг", "", "ой"]],
@@ -1129,7 +1161,7 @@
     return '<span class="school-base">' + schoolPart(p, 'prefix') + schoolPart(r, 'root') + schoolPart(s, 'suffix') + '</span>' +
       (e ? '<span class="school-end">' + e + '</span>' : '<span class="school-end zero-end" aria-hidden="true"></span>');
   }
-  $("#school-example-word").innerHTML = schoolWord("по", "сад", "к", "а");
+  $("#school-example-word").innerHTML = schoolWord(...LESSON_PARTS);
 
   function render(){
     const p = $("#sel-p").value, r = $("#sel-r").value, s = $("#sel-s").value, e = $("#sel-e").value;
@@ -1171,12 +1203,12 @@
     const key = keys[Math.floor(Math.random() * keys.length)];
     setParts(key.split("|"));
   });
-  $("#clear-word").addEventListener("click", () => setParts(["по", "сад", "к", "а"]));
-  setParts(["по", "сад", "к", "а"]);
+  $("#clear-word").addEventListener("click", () => setParts(LESSON_PARTS));
+  setParts(LESSON_PARTS);
 
 
   /* Мастерская: последовательный разбор нескольких слов */
-  $("#workshop-example").innerHTML = schoolWord("по", "сад", "к", "а");
+  $("#workshop-example").innerHTML = schoolWord(...LESSON_PARTS);
   const PRACTICE = [
     {word:"домик", q:"Найди окончание в слове «домик».", examples:"Измени слово: домик, домика, домику.", options:["-ик", "-а", "нулевое □"], ok:2, hint:"В форме «домик» после основы нет видимых букв, но в форме «домика» окончание появилось.", explain:"В слове «домик» окончание нулевое □. В других формах оно появляется: домик-а, домик-у."},
     {word:"домик", q:"Какой корень в слове «домик»?", examples:"Подбери родственные слова: дом, домик, домашний.", options:["-дом-", "-ик-", "-мик-"], ok:0, hint:"Ищи общую часть родственных слов, связанную со смыслом «дом».", explain:"Корень -дом-: он общий в словах дом, домик, домашний."},
@@ -1247,6 +1279,14 @@
 
   /* Рассматриваем семейства: новые слова рядом с формами того же слова */
   const FAMILIES = [
+    {name:"Сад",emoji:"🌱",root:"сад",intro:"Сад, садик и посадка семян связаны с растениями.",rows:[
+      {p:"",r:"сад",s:"",e:"",type:"original",label:"Начальное слово",detail:"Сад — место, где растут деревья и цветы. Окончание нулевое □."},
+      {p:"",r:"сад",s:"ик",e:"",type:"new",label:"Новое слово · суффикс",detail:"Садик — маленький сад. Суффикс -ик-."},
+      {p:"по",r:"сад",s:"к",e:"а",type:"new",label:"Новое слово · приставка и суффикс",detail:"Посадка семян — когда их сажают. Приставка по-, суффикс -к-, окончание -а."},
+      {p:"",r:"сад",s:"ов",e:"ый",type:"new",label:"Новое слово · суффикс",detail:"Садовый — связанный с садом: садовый цветок. Суффикс -ов-, окончание -ый."},
+      {p:"",r:"сад",s:"",e:"у",type:"form",label:"Форма слова «сад»",detail:"Гуляем по саду. Сад□ → сад-у: меняется окончание, это тот же сад."},
+      {p:"по",r:"сад",s:"к",e:"и",type:"form",label:"Форма слова «посадка»",detail:"Время посадки. Посадк-а → посадк-и: изменилось окончание, слово остаётся тем же."}
+    ]},
     {name:"Дом", emoji:"🏠", root:"дом", intro:"Все новые слова этой семьи связаны с домом: жильём или тем, что к нему относится.", rows:[
       {p:"",r:"дом",s:"",e:"", type:"original", label:"Начальное слово", detail:"Дом — место, где живут. Корень дом; окончание нулевое □."},
       {p:"",r:"дом",s:"ик",e:"", type:"new", label:"Новое слово · суффикс", detail:"Домик — маленький дом. Добавили суффикс -ик-; окончание нулевое □."},
@@ -1270,14 +1310,6 @@
       {p:"пере",r:"ход",s:"",e:"",type:"new",label:"Новое слово · приставка",detail:"Переход — место, где переходят. Приставка пере- перед корнем ход."},
       {p:"на",r:"ход",s:"к",e:"а",type:"new",label:"Новое слово · приставка и суффикс",detail:"Находка — то, что нашли. Приставка на-, суффикс -к-, окончание -а."},
       {p:"пере",r:"ход",s:"",e:"а",type:"form",label:"Форма слова «переход»",detail:"До перехода. Переход□ → переход-а: изменилось окончание, а не значение слова."}
-    ]},
-    {name:"Сад",emoji:"🌱",root:"сад",intro:"Здесь слова объединяет корень сад. В этом примере «посадка» означает посадку растений.",rows:[
-      {p:"",r:"сад",s:"",e:"",type:"original",label:"Начальное слово",detail:"Сад — место, где растут деревья и цветы. Окончание нулевое □."},
-      {p:"",r:"сад",s:"ик",e:"",type:"new",label:"Новое слово · суффикс",detail:"Садик — маленький сад. Суффикс -ик-."},
-      {p:"",r:"сад",s:"ов",e:"ый",type:"new",label:"Новое слово · суффикс",detail:"Садовый — связанный с садом: садовый цветок. Суффикс -ов-, окончание -ый."},
-      {p:"по",r:"сад",s:"к",e:"а",type:"new",label:"Новое слово · приставка и суффикс",detail:"Посадка семян — когда их сажают. Приставка по-, суффикс -к-, окончание -а."},
-      {p:"",r:"сад",s:"",e:"у",type:"form",label:"Форма слова «сад»",detail:"Гуляем по саду. Сад□ → сад-у: меняется окончание, это тот же сад."},
-      {p:"по",r:"сад",s:"к",e:"и",type:"form",label:"Форма слова «посадка»",detail:"Время посадки. Посадк-а → посадк-и: изменилось окончание, слово остаётся тем же."}
     ]},
     {name:"Гриб",emoji:"🍄",root:"гриб",intro:"Грибок и грибной связаны по смыслу с грибом; окончание помогает изменять форму слова.",rows:[
       {p:"",r:"гриб",s:"",e:"",type:"original",label:"Начальное слово",detail:"Гриб. Корень гриб, окончание нулевое □."},
@@ -1319,7 +1351,7 @@
 
   /* Игра про однокоренные слова */
   const FAMILY_QUIZ = [
-    {q:"Какое слово однокоренное слову «лес»?", choices:["лесник", "лестница", "поле"], correct:0, hint:"Вспомни, кто работает в лесу и заботится о нём.", why:"Лесник связан с лесом. Общий корень — -лес-. «Лестница» похожа буквами, но не связана с лесом по смыслу."},
+    {q:"В какой паре два разных однокоренных слова?", choices:["сад — посадка", "посадка — посадки", "сад — цветок"], correct:0, hint:"Ищи общий корень, но не две формы одного слова.", why:"В саду сажают растения. У слов «сад» и «посадка» общий корень -сад-. «Посадка» и «посадки» — формы одного слова."},
     {q:"Какое слово — родственник слова «дом»?", choices:["дым", "домик", "доска"], correct:1, hint:"Как ласково назвать маленький дом?", why:"Домик — маленький дом. Общий корень -дом-."},
     {q:"Выбери слово, родственное слову «кот».", choices:["кота", "котёнок", "кит"], correct:1, hint:"Нужно другое слово, а не просто другая форма слова «кот».", why:"Котёнок — детёныш кота: это родственные слова. «Кота» — форма слова «кот»."},
     {q:"Какая пара состоит из однокоренных слов?", choices:["книга — книгу", "лес — лесной", "гора — горит"], correct:1, hint:"Нужны разные слова с общим корнем и общим смыслом.", why:"Лес и лесной — разные слова с корнем -лес-. Книга и книгу — формы одного слова, а гора и горит не родственники."},
@@ -1369,28 +1401,28 @@
   /* ============ 4. Викторина ============ */
   const QUIZ = [
     {
-      q: 'В слове <span class="hl g">пере</span>ход зелёная часть — это…',
+      q: 'Какая часть выделена в слове <span class="hl g">по</span>садка?',
       opts: ["Приставка", "Корень", "Суффикс", "Окончание"],
       ok: 0,
-      why: "Верно! Приставка стоит <b>перед</b> корнем: <b>пере-</b> + <b>-ход-</b> + □. Она подсказывает: идём через что-то 🌉"
+      why: "В слове «посадка» <b>по-</b> стоит перед корнем <b>-сад-</b>. Это приставка."
     },
     {
-      q: 'В слове <span class="hl r">дом</span>ик красная часть — это…',
+      q: 'Какая часть выделена в слове по<span class="hl r">сад</span>ка?',
       opts: ["Приставка", "Корень", "Суффикс", "Окончание"],
       ok: 1,
-      why: "Конечно, корень! Проверим родственников: <b>дом</b>, <b>дом</b>ик, <b>дом</b>ашний. Общий смысл про дом 🏠"
+      why: "Сравни родственные слова: <b>сад</b>, <b>сад</b>ик, по<b>сад</b>ка. Общая часть <b>-сад-</b> — корень."
     },
     {
-      q: 'В слове кот<span class="hl b">ик</span> синяя часть — это…',
+      q: 'Какая часть выделена в слове посад<span class="hl b">к</span>а?',
       opts: ["Приставка", "Корень", "Суффикс", "Окончание"],
       ok: 2,
-      why: "Это суффикс <b>-ик-</b>. Он стоит после корня <b>-кот-</b> и делает слово ласковым 🐾 Окончание тут нулевое □."
+      why: "Суффикс <b>-к-</b> стоит после корня <b>-сад-</b> и перед окончанием <b>-а</b>."
     },
     {
-      q: 'В слове книг<span class="hl p">ой</span> фиолетовая часть — это…',
+      q: 'Какая часть выделена в слове посадк<span class="hl p">а</span>?',
       opts: ["Приставка", "Корень", "Суффикс", "Окончание"],
       ok: 3,
-      why: "Окончание! Поменяй слово: книг<b>а</b>, книг<b>и</b>, книг<b>у</b>, книг<b>ой</b>. Корень <b>-книг-</b> не меняется, меняется хвостик 🎀"
+      why: "Сравни: посадк<b>а</b>, посадк<b>и</b>, посадк<b>у</b>. В форме «посадка» окончание <b>-а</b>."
     },
     {
       q: "Какая часть есть в <b>любом</b> слове?",
