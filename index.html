@@ -116,23 +116,24 @@
   .dot.g{background:var(--green)}.dot.r{background:var(--red)}.dot.b{background:var(--blue)}.dot.p{background:var(--purple)}
 
   /* ---------- герой ---------- */
-  .hero{display:grid;grid-template-columns:1.02fr 1fr;gap:26px;align-items:center;padding:46px 0 22px}
+  .hero{
+    display:grid;grid-template-columns:1.02fr 1fr;grid-template-areas:"intro examples" "actions examples";
+    gap:20px 26px;align-items:center;padding:46px 0 22px
+  }
+  .hero-intro{grid-area:intro;align-self:end}
   .hero h1{font-size:clamp(2.3rem,5.2vw,3.7rem);line-height:1.07;letter-spacing:-.035em;margin-bottom:18px}
   .hero h1 span{background:linear-gradient(transparent 62%, #FFD79B 62%);border-radius:6px}
-  .hero p{font-size:1.1rem;color:var(--muted);max-width:490px;margin-bottom:26px}
-  .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
-  .hero-art{
-    background:var(--paper);border:2px solid var(--line);border-radius:30px;
-    box-shadow:var(--shadow);padding:14px;position:relative
+  .hero-intro p{font-size:1.1rem;color:var(--muted);max-width:490px;margin-bottom:0}
+  .hero-actions{grid-area:actions;align-self:start;display:flex;gap:12px;flex-wrap:wrap}
+  .hero-examples{
+    grid-area:examples;min-width:0;background:var(--paper);border:2px solid var(--line);border-radius:30px;
+    box-shadow:var(--shadow);padding:clamp(16px,3vw,26px)
   }
-  .hero-art svg{display:block;width:100%;height:auto}
-  .bubble{
-    position:static;background:#fff;border:2px solid var(--line);
-    border-radius:16px;padding:9px 14px;font-size:.85rem;font-weight:700;
-    margin:10px 2px 2px;text-align:center;max-width:none;transform:none
-  }
-  .float{animation:float 4s ease-in-out infinite}
-  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+  .hero-examples h2{font-size:clamp(1.4rem,2.3vw,1.8rem);margin-bottom:14px}
+  .hero-example{background:#FFF9EE;border:2px solid var(--line);border-radius:18px;padding:12px 14px}
+  .hero-example + .hero-example{margin-top:10px}
+  .hero-word{font-size:clamp(1.85rem,3.5vw,2.65rem);font-weight:900;line-height:1.35}
+  .hero-example p{margin:6px 0 0;color:var(--muted);font-size:.95rem}
 
   /* ---------- формула ---------- */
   .formula{padding:22px 0 44px}
@@ -302,8 +303,8 @@
 
   /* ---------- адаптив ---------- */
   @media (max-width:920px){
-    .hero{grid-template-columns:minmax(0,1fr);padding-top:30px}
-    .hero-art{max-width:620px;margin-inline:auto;width:100%}
+    .hero{grid-template-columns:minmax(0,1fr);grid-template-areas:"intro" "examples" "actions";padding-top:30px}
+    .hero-examples{max-width:620px;margin-inline:auto;width:100%}
     .cards{grid-template-columns:1fr}
     .builder{grid-template-columns:1fr}
     .memo-grid{grid-template-columns:1fr}
@@ -318,7 +319,6 @@
     .formula-chip{flex:1 1 42%;max-width:none}
     .arrow{display:none}
     .preview-word .seg{font-size:1.6rem;padding:7px 10px}
-    .bubble{position:static;transform:none;margin:8px auto 0;max-width:none;text-align:center}
     .hero-actions .btn{width:100%}
   }
   @media (prefers-reduced-motion:reduce){
@@ -426,8 +426,6 @@
 
 
   /* Телефоны и планшеты: компактная шапка, крупные элементы и защита от переполнения. */
-  .train-scroll {max-width:100%}
-  .train-scroll-hint {display:none}
   @media (max-width: 920px) {
     section {scroll-margin-top: 142px}
     .topbar .wrap {gap:4px;min-height:0;padding-top:8px;padding-bottom:6px}
@@ -443,11 +441,7 @@
   }
   @media (max-width: 560px) {
     body {background-attachment:scroll}
-    .train-scroll {overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;border-radius:16px;scrollbar-width:thin}
-    .hero-art .train-scroll svg {min-width:540px}
-    .train-scroll-hint {display:block!important;margin:7px 4px 0!important;color:var(--muted);font-size:.78rem!important;line-height:1.4}
     .topbar .wrap {width:calc(100% - 24px)}
-    .hero-art {padding:10px}
     .paper,.card,.controls,.preview,.side-box {min-width:0}
     .family-row .school-word {overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch}
     .practice-options {align-items:stretch}
@@ -466,7 +460,7 @@
   <div class="wrap">
     <a class="brand" href="#top">
       <span class="logo" aria-hidden="true">📚</span>
-      <span>Словоград<small>путешествие в слово</small></span>
+      <span>Словоград<small>учимся разбирать слова</small></span>
     </a>
     <nav aria-label="Разделы сайта">
       <a href="#formula">Порядок</a>
@@ -485,89 +479,28 @@
 
   <!-- ===== ГЕРОЙ ===== -->
   <section class="hero" aria-labelledby="hero-title">
-    <div>
+    <div class="hero-intro">
       <span class="badge">🎒 2 класс · занимаемся ~10 минут</span>
       <h1 id="hero-title">Из чего <span>состоит слово?</span></h1>
-      <p>Слово — как маленький поезд 🚂. В нём есть вагончики, и у каждого своя работа. Давай познакомимся с ними и научимся разбирать слова по частям!</p>
-      <div class="hero-actions">
-        <a class="btn" href="#parts">Поехали! 🚂</a>
-        <a class="btn ghost" href="#game">Сразу играть 🎮</a>
+      <p><b>В каждом слове есть корень.</b> Но он не всегда стоит первым: перед ним может быть приставка.</p>
+    </div>
+
+    <div class="hero-examples">
+      <div class="kicker">Сравни два слова</div>
+      <h2>Где стоит корень?</h2>
+      <div class="hero-example">
+        <div class="hero-word"><span class="hl r">сад</span></div>
+        <p>Слово начинается с корня <b>-сад-</b>.</p>
+      </div>
+      <div class="hero-example">
+        <div class="hero-word"><span class="hl g">по</span><span class="hl r">сад</span>ка</div>
+        <p>Тот же корень <b>-сад-</b> стоит после приставки <b>по-</b>.</p>
       </div>
     </div>
 
-    <div class="hero-art">
-      <div class="train-scroll" tabindex="0" role="region" aria-label="Рисунок поезда. На узком экране можно пролистать вбок">
-      <svg viewBox="0 0 760 390" role="img" aria-labelledby="train-title train-desc">
-        <title id="train-title">Поезд слова «посадка»</title>
-        <desc id="train-desc">Паровоз тянет тендер с приставкой по, цистерну с корнем сад, платформу с суффиксом к и пассажирский вагон с окончанием а. Над буквами школьные знаки, окончание в рамке, основа подчёркнута.</desc>
-        <defs><linearGradient id="train-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E9F4FF"/><stop offset="1" stop-color="#FFF6E6"/></linearGradient></defs>
-        <rect width="760" height="390" rx="26" fill="url(#train-sky)"/>
-        <circle cx="690" cy="50" r="24" fill="#FFD469"/>
-        <g fill="#fff" opacity=".9"><ellipse cx="99" cy="54" rx="37" ry="13"/><ellipse cx="123" cy="48" rx="25" ry="16"/><ellipse cx="540" cy="48" rx="33" ry="12"/><ellipse cx="561" cy="43" rx="23" ry="15"/></g>
-        <text x="380" y="48" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="23" font-weight="800" fill="#22303F">Слово-поезд «посадка»</text>
-        <text x="380" y="77" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#5C6B7A">У каждого вагончика — своя работа</text>
-        <!-- Школьный разбор отдельной строкой: знаки прямо над буквами -->
-        <g font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="800" text-anchor="middle">
-          <text x="299" y="140" fill="#1F7A50">по</text><path d="M278 99 H320 V115" fill="none" stroke="#1F7A50" stroke-width="3"/>
-          <text x="367" y="140" fill="#C23F3F">сад</text><path d="M335 115 Q367 86 399 115" fill="none" stroke="#C23F3F" stroke-width="3"/>
-          <text x="420" y="140" fill="#2B5FC4">к</text><path d="M406 115 L420 98 L434 115" fill="none" stroke="#2B5FC4" stroke-width="3"/>
-          <text x="459" y="140" fill="#7640BD">а</text><rect x="444" y="116" width="30" height="31" fill="none" stroke="#7640BD" stroke-width="2.5"/>
-          <path d="M278 148 V154 H434 V148" fill="none" stroke="#22303F" stroke-width="2"/>
-        </g>
-        <!-- Рельсы и сцепки -->
-        <path d="M22 292 H738 M22 304 H738" fill="none" stroke="#CDBB9E" stroke-width="5" stroke-linecap="round"/>
-        <g stroke="#E3D1B5" stroke-width="4"><path d="M50 286 V311 M115 286 V311 M180 286 V311 M245 286 V311 M310 286 V311 M375 286 V311 M440 286 V311 M505 286 V311 M570 286 V311 M635 286 V311 M700 286 V311"/></g>
-        <g stroke="#8699A8" stroke-width="7" stroke-linecap="round"><path d="M156 252 H178 M293 252 H315 M430 252 H452 M565 252 H587"/></g>
-        <!-- Паровоз: просто ведёт состав, не обозначает часть слова -->
-        <g>
-          <path d="M24 275 H154 V251 H145 V212 H103 V190 H65 V215 H45 V241 H24 Z" fill="#F29B4C" stroke="#C76C2C" stroke-width="3" stroke-linejoin="round"/>
-          <rect x="74" y="200" width="23" height="20" rx="4" fill="#DDF2FF" stroke="#C76C2C" stroke-width="2"/>
-          <path d="M39 241 V224 H53 V241 M35 222 H57" fill="none" stroke="#C76C2C" stroke-width="5" stroke-linecap="round"/>
-          <circle cx="37" cy="255" r="6" fill="#FFF1AA"/>
-          <path d="M29 275 L21 285 H159" fill="none" stroke="#C76C2C" stroke-width="4"/>
-          <g fill="#3A4653"><circle cx="52" cy="280" r="14"/><circle cx="120" cy="280" r="17"/></g><g fill="#D7E0E7"><circle cx="52" cy="280" r="5"/><circle cx="120" cy="280" r="6"/></g>
-          <text x="87" y="336" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#7D633F">паровоз</text>
-        </g>
-        <!-- Тендер: приставка -->
-        <g>
-          <path d="M178 222 H293 V271 Q293 279 285 279 H186 Q178 279 178 271 Z" fill="#2F9E6B" stroke="#1F7A50" stroke-width="3"/>
-          <path d="M187 222 Q197 202 207 218 Q217 200 229 220 Q244 202 254 220 Q271 201 283 222" fill="#44645A"/>
-          <text x="235" y="257" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="800" fill="#fff">по</text>
-          <g fill="#3A4653"><circle cx="199" cy="280" r="13"/><circle cx="273" cy="280" r="13"/></g><g fill="#D7E0E7"><circle cx="199" cy="280" r="5"/><circle cx="273" cy="280" r="5"/></g>
-          <text x="235" y="333" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="800" fill="#1F7A50">приставка</text>
-          <text x="235" y="352" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#5C6B7A">тендер</text>
-        </g>
-        <!-- Цистерна: корень -->
-        <g>
-          <rect x="315" y="208" width="115" height="60" rx="29" fill="#EF5B5B" stroke="#C23F3F" stroke-width="3"/>
-          <path d="M325 268 H421 V276 H325 Z" fill="#C23F3F"/><path d="M356 208 V201 H387 V208" fill="#C23F3F"/>
-          <text x="372" y="248" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="27" font-weight="800" fill="#fff">сад</text>
-          <g fill="#3A4653"><circle cx="336" cy="280" r="13"/><circle cx="410" cy="280" r="13"/></g><g fill="#D7E0E7"><circle cx="336" cy="280" r="5"/><circle cx="410" cy="280" r="5"/></g>
-          <text x="372" y="333" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="800" fill="#C23F3F">корень ⭐</text>
-          <text x="372" y="352" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#5C6B7A">цистерна</text>
-        </g>
-        <!-- Платформа: суффикс -->
-        <g>
-          <rect x="452" y="255" width="113" height="20" rx="5" fill="#3D7FF2" stroke="#2B5FC4" stroke-width="3"/>
-          <rect x="480" y="208" width="57" height="46" rx="7" fill="#75A5FB" stroke="#2B5FC4" stroke-width="3"/>
-          <text x="508" y="242" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="29" font-weight="800" fill="#fff">к</text>
-          <g fill="#3A4653"><circle cx="473" cy="280" r="13"/><circle cx="545" cy="280" r="13"/></g><g fill="#D7E0E7"><circle cx="473" cy="280" r="5"/><circle cx="545" cy="280" r="5"/></g>
-          <text x="508" y="333" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="800" fill="#2B5FC4">суффикс</text>
-          <text x="508" y="352" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#5C6B7A">платформа</text>
-        </g>
-        <!-- Пассажирский вагон: окончание -->
-        <g>
-          <rect x="587" y="205" width="142" height="70" rx="13" fill="#9B5DE5" stroke="#7640BD" stroke-width="3"/>
-          <rect x="600" y="218" width="23" height="21" rx="4" fill="#EADFFF"/><rect x="693" y="218" width="23" height="21" rx="4" fill="#EADFFF"/>
-          <text x="658" y="254" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="30" font-weight="800" fill="#fff">а</text>
-          <g fill="#3A4653"><circle cx="610" cy="280" r="13"/><circle cx="706" cy="280" r="13"/></g><g fill="#D7E0E7"><circle cx="610" cy="280" r="5"/><circle cx="706" cy="280" r="5"/></g>
-          <text x="658" y="333" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="800" fill="#7640BD">окончание</text>
-          <text x="658" y="352" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#5C6B7A">пассажирский вагон</text>
-        </g>
-      </svg>
-      </div>
-      <p class="train-scroll-hint">👆 Проведи по рисунку влево, чтобы увидеть весь поезд</p>
-      <div class="bubble">🌱 Посадка — когда сажаем семечко или садимся в автобус 🚌</div>
+    <div class="hero-actions">
+      <a class="btn" href="#parts">Начать урок ✏️</a>
+      <a class="btn ghost" href="#game">Сразу играть 🎮</a>
     </div>
   </section>
 
@@ -575,8 +508,8 @@
   <section class="formula" id="formula" aria-labelledby="formula-title">
     <div class="section-head" style="text-align:center">
       <div class="kicker">Главное правило</div>
-      <h2 id="formula-title">Порядок вагончиков</h2>
-      <p class="lead" style="margin-inline:auto">Запомни дорожку: части слова никогда не меняются местами.</p>
+      <h2 id="formula-title">Порядок частей слова</h2>
+      <p class="lead" style="margin-inline:auto">Если в слове есть все четыре части, они стоят в таком порядке.</p>
     </div>
     <div class="formula-row">
       <div class="formula-chip" style="--c:var(--green)"><span class="n">1</span><b>Приставка</b><small>перед корнем</small></div>
@@ -587,7 +520,7 @@
       <div class="arrow" aria-hidden="true">→</div>
       <div class="formula-chip" style="--c:var(--purple)"><span class="n">4</span><b>Окончание</b><small>хвостик слова</small></div>
     </div>
-    <p class="callout">💡 Обязательно бывает только <b>корень</b>. Остальных частей может не быть. А ещё окончание иногда <b>невидимое</b> — его обозначают квадратиком <b>□</b>.</p>
+    <p class="callout">💡 <b>Корень есть в каждом слове.</b> Остальных частей может не быть. Если окончание нулевое, его обозначают квадратиком <b>□</b>.</p>
   </section>
 
   <!-- Школьные обозначения -->
@@ -764,7 +697,7 @@
 
     <div class="builder">
       <div class="controls">
-        <h3>Выбери вагончики</h3>
+        <h3>Выбери части слова</h3>
         <p class="hint">«Нет» означает, что этой части в слове просто нет. А □ — невидимое (нулевое) окончание.</p>
 
         <div class="field g">
