@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Словоград — из чего состоит слово? Тренажёр для 2 класса</title>
+<meta name="description" content="Просто и понятно о составе слова: приставка, корень, суффикс, окончание. Объяснения, примеры, конструктор слов и игра для школьника 2 класса.">
+<style>
+  :root{
+    --green:#2F9E6B;  --green-d:#1F7A50;  --green-s:#E3F5EB;
+    --red:#EF5B5B;    --red-d:#C23F3F;    --red-s:#FFE8E6;
+    --blue:#3D7FF2;   --blue-d:#2B5FC4;   --blue-s:#E6EFFF;
+    --purple:#9B5DE5; --purple-d:#7640BD;  --purple-s:#F2E8FC;
+    --ink:#22303F;
+    --muted:#5C6B7A;
+    --paper:#FFFDF8;
+    --cream:#FFF7EA;
+    --line:#F0E2CC;
+    --cta:#FF7A45;
+    --cta-d:#E85F2A;
+    --shadow:0 12px 30px rgba(34,48,63,.09);
+    --shadow-sm:0 5px 14px rgba(34,48,63,.08);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    color:var(--ink);
+    font-family:"Segoe UI","Trebuchet MS",Arial,sans-serif;
+    font-size:17px;
+    line-height:1.55;
+    background-color:var(--cream);
+    background-image:
+      radial-gradient(circle at 10% 6%, #FFE3BE 0, transparent 34%),
+      radial-gradient(circle at 92% 16%, #DDEBFF 0, transparent 32%),
+      radial-gradient(circle at 48% 92%, #DEF4E7 0, transparent 38%);
+    background-attachment:fixed;
+  }
+  h1,h2,h3,p,ul,ol{margin-top:0}
+  a{color:inherit}
+  button,select{font:inherit}
+  button{cursor:pointer}
+  :focus-visible{outline:3px solid #FFB020;outline-offset:3px}
+  .wrap{width:min(1120px,100% - 36px);margin-inline:auto}
+  section{scroll-margin-top:86px}
+
+  /* ---------- шапка ---------- */
+  .topbar{
+    position:sticky;top:0;z-index:30;
+    background:rgba(255,253,248,.92);
+    backdrop-filter:blur(10px);
+    border-bottom:2px solid var(--line);
+  }
+  .topbar .wrap{display:flex;align-items:center;gap:18px;min-height:70px;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:900;font-size:1.15rem;letter-spacing:-.02em}
+  .brand .logo{
+    width:40px;height:40px;display:grid;place-items:center;border-radius:13px;
+    background:var(--cta);color:#fff;font-size:1.3rem;box-shadow:var(--shadow-sm);transform:rotate(-6deg)
+  }
+  .brand small{display:block;font-size:.68rem;font-weight:600;color:var(--muted);letter-spacing:.02em}
+  nav{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}
+  nav a{
+    text-decoration:none;font-weight:700;font-size:.9rem;color:var(--muted);
+    padding:9px 13px;border-radius:999px;transition:.15s
+  }
+  nav a:hover{background:#FFF0DC;color:var(--ink)}
+  .nav-play{background:var(--green-s);color:var(--green-d)!important}
+
+  /* ---------- общие элементы ---------- */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    border:0;border-radius:999px;padding:13px 24px;
+    font-weight:800;text-decoration:none;color:#fff;background:var(--cta);
+    box-shadow:0 6px 0 var(--cta-d),var(--shadow-sm);
+    transition:transform .12s,box-shadow .12s
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 8px 0 var(--cta-d),var(--shadow)}
+  .btn:active{transform:translateY(3px);box-shadow:0 3px 0 var(--cta-d)}
+  .btn.ghost{background:#fff;color:var(--ink);box-shadow:0 5px 0 #E9DCC7,var(--shadow-sm);border:2px solid var(--line)}
+  .btn.ghost:hover{box-shadow:0 7px 0 #E9DCC7,var(--shadow)}
+  .btn.small{padding:9px 16px;font-size:.9rem}
+  .btn.blue{background:var(--blue);box-shadow:0 6px 0 var(--blue-d),var(--shadow-sm)}
+  .btn.blue:hover{box-shadow:0 8px 0 var(--blue-d),var(--shadow)}
+  .btn.blue:active{box-shadow:0 3px 0 var(--blue-d)}
+  .badge{
+    display:inline-block;background:#fff;border:2px solid var(--line);
+    border-radius:999px;padding:6px 14px;font-size:.82rem;font-weight:800;color:var(--muted);
+    box-shadow:var(--shadow-sm);margin-bottom:18px
+  }
+  .kicker{font-size:.78rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--cta-d);margin-bottom:8px}
+  h2{font-size:clamp(1.7rem,3.6vw,2.5rem);letter-spacing:-.025em;line-height:1.15;margin-bottom:10px}
+  .lead{font-size:1.05rem;color:var(--muted);max-width:720px;margin-bottom:28px}
+  .section-head{margin-bottom:26px}
+  .paper{
+    background:var(--paper);border:2px solid var(--line);border-radius:26px;
+    box-shadow:var(--shadow);padding:26px
+  }
+
+  /* цветные кусочки слова */
+  .seg{display:inline-block;padding:5px 11px;border-radius:10px;color:#fff;font-weight:800;line-height:1.15;white-space:nowrap}
+  .seg.g{background:var(--green)}
+  .seg.r{background:var(--red)}
+  .seg.b{background:var(--blue)}
+  .seg.p{background:var(--purple)}
+  .seg.zero{background:var(--purple-s);color:var(--purple-d);border:2px dashed var(--purple)}
+  .word{display:flex;flex-wrap:wrap;align-items:center;gap:4px;font-size:1.55rem;font-weight:800}
+  .word.small{font-size:1.15rem}
+  .hl{padding:0 .1em;border-radius:6px;font-weight:900;box-shadow:inset 0 -4px currentColor}
+  .hl.g{background:var(--green-s);color:var(--green-d)}
+  .hl.r{background:var(--red-s);color:var(--red-d)}
+  .hl.b{background:var(--blue-s);color:var(--blue-d)}
+  .hl.p{background:var(--purple-s);color:var(--purple-d)}
+  .legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:.83rem;font-weight:700;color:var(--muted);margin-top:14px}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .dot{width:11px;height:11px;border-radius:50%;display:inline-block}
+  .dot.g{background:var(--green)}.dot.r{background:var(--red)}.dot.b{background:var(--blue)}.dot.p{background:var(--purple)}
+
+  /* ---------- герой ---------- */
+  .hero{
+    display:grid;grid-template-columns:1.02fr 1fr;grid-template-areas:"intro examples" "actions examples";
+    gap:20px 26px;align-items:center;padding:46px 0 22px
+  }
+  .hero-intro{grid-area:intro;align-self:end}
+  .hero h1{font-size:clamp(2.3rem,5.2vw,3.7rem);line-height:1.07;letter-spacing:-.035em;margin-bottom:18px}
+  .hero h1 span{background:linear-gradient(transparent 62%, #FFD79B 62%);border-radius:6px}
+  .hero-intro p{font-size:1.1rem;color:var(--muted);max-width:490px;margin-bottom:0}
+  .hero-actions{grid-area:actions;align-self:start;display:flex;gap:12px;flex-wrap:wrap}
+  .hero-examples{
+    grid-area:examples;min-width:0;background:var(--paper);border:2px solid var(--line);border-radius:30px;
+    box-shadow:var(--shadow);padding:clamp(16px,3vw,26px)
+  }
+  .hero-examples h2{font-size:clamp(1.4rem,2.3vw,1.8rem);margin-bottom:14px}
+  .hero-example{background:#FFF9EE;border:2px solid var(--line);border-radius:18px;padding:12px 14px}
+  .hero-example + .hero-example{margin-top:10px}
+  .hero-word{font-size:clamp(1.85rem,3.5vw,2.65rem);font-weight:900;line-height:1.35}
+  .hero-example p{margin:6px 0 0;color:var(--muted);font-size:.95rem}
+
+  /* ---------- формула ---------- */
+  .formula{padding:22px 0 44px}
+  .formula-row{display:flex;align-items:stretch;gap:8px;flex-wrap:wrap;justify-content:center}
+  .formula-chip{
+    flex:1 1 180px;max-width:240px;background:var(--paper);border:2px solid var(--line);
+    border-top:7px solid var(--c);border-radius:18px;padding:14px 12px;text-align:center;box-shadow:var(--shadow-sm)
+  }
+  .formula-chip b{display:block;font-size:1.05rem}
+  .formula-chip small{display:block;color:var(--muted);font-size:.78rem;margin-top:4px}
+  .formula-chip .n{
+    display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;
+    background:var(--c);color:#fff;font-size:.8rem;font-weight:900;margin-bottom:6px
+  }
+  .arrow{display:grid;place-items:center;font-size:1.5rem;color:#C9B79B;font-weight:900;min-width:18px}
+  .callout{
+    margin:18px auto 0;max-width:760px;text-align:center;background:#FFF3D6;
+    border:2px dashed #F0C979;border-radius:18px;padding:12px 18px;font-size:1rem
+  }
+
+  /* ---------- карточки ---------- */
+  .parts{padding:16px 0 52px}
+  .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+  .card{
+    background:var(--paper);border:2px solid var(--line);border-radius:26px;
+    box-shadow:var(--shadow);padding:24px;position:relative;overflow:hidden;
+    transition:transform .18s
+  }
+  .card:hover{transform:translateY(-3px)}
+  .card::before{content:"";position:absolute;inset:0 0 auto 0;height:7px;background:var(--c)}
+  .card-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+  .card-num{
+    width:38px;height:38px;flex:0 0 38px;display:grid;place-items:center;border-radius:12px;
+    background:var(--c);color:#fff;font-weight:900;font-size:1.1rem
+  }
+  .card-emoji{font-size:1.7rem;line-height:1}
+  .card h3{margin:0;font-size:1.45rem;letter-spacing:-.02em}
+  .card .where{display:inline-block;background:var(--soft);color:var(--cd);border-radius:999px;padding:4px 11px;font-size:.78rem;font-weight:800;margin-bottom:12px}
+  .card .def{margin-bottom:14px}
+  .example-box{background:#fff;border:2px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
+  .example-label{font-size:.75rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+  .wordline{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:7px}
+  .wordline:last-child{margin-bottom:0}
+  .wordline .arrow-mini{color:#B9A98F;font-weight:800}
+  .tip{background:var(--soft);border-radius:14px;padding:11px 13px;font-size:.93rem;margin-bottom:12px}
+  .tip b{color:var(--cd)}
+  details{border-top:2px dashed var(--line);padding-top:10px}
+  summary{list-style:none;cursor:pointer;font-weight:800;color:var(--cd);font-size:.92rem;display:flex;align-items:center;gap:8px}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"▾";font-size:.8rem}
+  details[open] summary::after{content:"▴"}
+  details ul{margin:12px 0 0;padding-left:20px;font-size:.95rem}
+  details li{margin-bottom:5px}
+  .mini-game{background:#fff;border:2px solid var(--line);border-radius:16px;padding:13px;margin-top:12px}
+  .mini-game .word{justify-content:center;margin-bottom:8px}
+  .mini-game p{text-align:center;margin:0 0 10px;font-size:.94rem;min-height:1.6em}
+  .chip-row{display:flex;flex-wrap:wrap;gap:7px;justify-content:center}
+  .chip{
+    border:2px solid var(--line);background:#fff;border-radius:999px;padding:6px 14px;
+    font-weight:800;font-size:.9rem;color:var(--ink);transition:.12s
+  }
+  .chip:hover{transform:translateY(-2px);border-color:var(--c)}
+  .chip.active{background:var(--c);color:#fff;border-color:var(--c)}
+  .card.g{--c:var(--green);--cd:var(--green-d);--soft:var(--green-s)}
+  .card.r{--c:var(--red);--cd:var(--red-d);--soft:var(--red-s)}
+  .card.b{--c:var(--blue);--cd:var(--blue-d);--soft:var(--blue-s)}
+  .card.p{--c:var(--purple);--cd:var(--purple-d);--soft:var(--purple-s)}
+
+  /* ---------- конструктор ---------- */
+  .constructor{padding:16px 0 52px}
+  .builder{display:grid;grid-template-columns:minmax(260px,330px) 1fr;gap:22px}
+  .controls{background:var(--paper);border:2px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:20px}
+  .controls h3{margin-bottom:4px;font-size:1.2rem}
+  .controls .hint{font-size:.85rem;color:var(--muted);margin-bottom:16px}
+  .field{margin-bottom:13px}
+  .field label{display:flex;align-items:center;gap:7px;font-weight:800;font-size:.88rem;margin-bottom:5px}
+  .field select{
+    width:100%;padding:11px 12px;border:2px solid var(--line);border-left:7px solid var(--c);
+    border-radius:12px;background:#fff;color:var(--ink);font-weight:700;appearance:none;
+    background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);
+    background-position:calc(100% - 18px) 50%,calc(100% - 12px) 50%;
+    background-size:6px 6px,6px 6px;background-repeat:no-repeat
+  }
+  .field.g{--c:var(--green)}.field.r{--c:var(--red)}.field.b{--c:var(--blue)}.field.p{--c:var(--purple)}
+  .presets{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
+  .presets button{font-size:.82rem;padding:7px 12px;border-radius:999px;border:2px solid var(--line);background:#fff;font-weight:800;transition:.12s}
+  .presets button:hover{background:var(--blue-s);border-color:var(--blue);transform:translateY(-2px)}
+  .preview{background:var(--paper);border:2px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:24px;display:flex;flex-direction:column}
+  .preview-title{font-size:.78rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+  .preview-word{
+    background:#fff;border:3px dashed #E7D6B9;border-radius:20px;padding:22px 16px;
+    display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:5px;min-height:100px
+  }
+  .preview-word .seg{font-size:2.15rem;padding:8px 14px;border-radius:14px}
+  .preview-word .seg.zero{font-size:2.15rem}
+  .basis{font-size:.9rem;color:var(--muted);margin-top:12px;text-align:center}
+  .basis b{color:var(--ink)}
+  .feedback{
+    margin-top:16px;border-radius:18px;padding:15px 17px;font-size:1rem;
+    background:var(--green-s);border:2px solid #BEE6CF;
+  }
+  .feedback .fb-title{font-weight:900;font-size:1.08rem;margin-bottom:4px;color:var(--green-d)}
+  .feedback.no{background:#FFF1E3;border-color:#F6C9A0}
+  .feedback.no .fb-title{color:var(--cta-d)}
+  .feedback p{margin:0}
+  .builder-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+
+  /* ---------- игра ---------- */
+  .game{padding:16px 0 52px}
+  .quiz{max-width:800px;margin-inline:auto}
+  .quiz-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;font-weight:800;font-size:.9rem;color:var(--muted)}
+  .progress{height:12px;background:#F1E6D4;border-radius:999px;overflow:hidden;margin-bottom:22px}
+  .progress > i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),#7DD8A6);border-radius:999px;transition:width .35s}
+  .question{font-size:1.4rem;font-weight:800;line-height:1.4;margin-bottom:18px;min-height:2.8em}
+  .options{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}
+  .opt{
+    border:2px solid var(--line);background:#fff;border-radius:16px;padding:14px 16px;
+    text-align:left;font-weight:800;font-size:1rem;transition:.12s;box-shadow:var(--shadow-sm)
+  }
+  .opt:hover:not(:disabled){transform:translateY(-2px);border-color:var(--blue)}
+  .opt:disabled{cursor:default}
+  .opt.correct{background:var(--green-s);border-color:var(--green);color:var(--green-d)}
+  .opt.wrong{background:var(--red-s);border-color:var(--red);color:var(--red-d)}
+  .opt .mark{float:right}
+  .quiz-feedback{margin-top:16px;border-radius:16px;padding:13px 16px;background:var(--blue-s);border:2px solid #C7DAFB;display:none}
+  .quiz-feedback.show{display:block;animation:pop .22s ease}
+  .quiz-feedback b{color:var(--blue-d)}
+  @keyframes pop{from{transform:scale(.96);opacity:0}to{transform:scale(1);opacity:1}}
+  .quiz-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:18px;flex-wrap:wrap}
+  .score{font-weight:800;color:var(--muted);font-size:.95rem}
+  .result{text-align:center;padding:18px 8px}
+  .result .big{font-size:3.4rem;line-height:1;margin-bottom:10px}
+  .result h3{font-size:1.7rem;margin-bottom:8px}
+  .result p{color:var(--muted);margin-bottom:20px}
+  .confetti{position:relative;height:0;overflow:visible}
+  .confetti i{position:absolute;top:-150px;font-style:normal;font-size:1.5rem;animation:fall 2.4s linear forwards}
+  @keyframes fall{to{transform:translateY(330px) rotate(320deg);opacity:0}}
+
+  /* ---------- памятка ---------- */
+  .memo{padding:16px 0 46px}
+  .memo-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:22px}
+  .steps{list-style:none;counter-reset:step;padding:0;margin:0}
+  .steps li{
+    display:flex;gap:14px;padding:13px 0;border-bottom:2px dashed var(--line)
+  }
+  .steps li:last-child{border-bottom:0}
+  .steps .n{
+    counter-increment:step;flex:0 0 34px;height:34px;display:grid;place-items:center;
+    background:var(--blue);color:#fff;border-radius:11px;font-weight:900
+  }
+  .steps .n::before{content:counter(step)}
+  .steps b{display:block;margin-bottom:2px}
+  .steps p{margin:0;color:var(--muted);font-size:.94rem}
+  .side-box{background:var(--paper);border:2px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:22px}
+  .side-box h3{margin-bottom:10px;font-size:1.2rem}
+  .side-box ul{padding-left:19px;margin:0 0 14px;font-size:.94rem}
+  .side-box li{margin-bottom:8px}
+  .order{
+    display:flex;flex-wrap:wrap;gap:5px;align-items:center;justify-content:center;
+    background:#FFF3D6;border:2px dashed #F0C979;border-radius:14px;padding:12px 8px;font-weight:800;font-size:.9rem
+  }
+  .print-btn{margin-top:16px;width:100%}
+
+  footer{border-top:2px solid var(--line);background:rgba(255,253,248,.75);padding:24px 0;font-size:.9rem;color:var(--muted)}
+  footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:center}
+  footer a{font-weight:800;text-decoration:none;color:var(--cta-d)}
+
+  /* ---------- адаптив ---------- */
+  @media (max-width:920px){
+    .hero{grid-template-columns:minmax(0,1fr);grid-template-areas:"intro" "examples" "actions";padding-top:30px}
+    .hero-examples{max-width:620px;margin-inline:auto;width:100%}
+    .cards{grid-template-columns:1fr}
+    .builder{grid-template-columns:1fr}
+    .memo-grid{grid-template-columns:1fr}
+    nav{width:100%;margin-left:0;justify-content:flex-start}
+    .topbar .wrap{padding-block:10px}
+  }
+  @media (max-width:560px){
+    body{font-size:16px}
+    .wrap{width:min(1120px,100% - 24px)}
+    .paper,.card,.controls,.preview,.side-box{padding:18px}
+    .options{grid-template-columns:1fr}
+    .formula-chip{flex:1 1 42%;max-width:none}
+    .arrow{display:none}
+    .preview-word .seg{font-size:1.6rem;padding:7px 10px}
+    .hero-actions .btn{width:100%}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  }
+  @media print{
+    body{background:#fff}
+    .topbar,.hero,.formula,.parts,.constructor,.workshop,.game,footer,.print-btn{display:none!important}
+    .memo{display:block!important;padding:0}
+    .memo .paper,.memo .side-box{box-shadow:none;border:1px solid #ccc}
+    section{scroll-margin-top:0}
+  }
+
+  /* Школьные обозначения морфем */
+  .school-section{padding:0 0 48px}
+  .symbol-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:20px}
+  .symbol-card{background:#fff;border:2px solid var(--line);border-radius:16px;padding:13px 10px;text-align:center}
+  .symbol-icon{height:42px;display:flex;justify-content:center;align-items:center;font-size:1.8rem;font-weight:800;line-height:1;color:var(--ink)}
+  .symbol-icon svg{width:48px;height:32px;overflow:visible}
+  .symbol-card b{display:block;font-size:.9rem}
+  .symbol-card small{display:block;color:var(--muted);font-size:.78rem}
+  .school-example{background:#fff9ee;border:2px dashed #e7d6b9;border-radius:18px;padding:18px;margin-top:18px;text-align:center}
+  .school-word{display:flex;justify-content:center;align-items:baseline;flex-wrap:wrap;gap:0;padding:25px 8px 14px;font-size:clamp(1.6rem,5vw,2.25rem);line-height:1.4;font-weight:800;letter-spacing:0}
+  .school-base{display:inline-flex;align-items:baseline;position:relative;border-bottom:2px solid var(--ink);padding-bottom:4px;white-space:nowrap}
+  .school-base:before,.school-base:after{content:"";position:absolute;bottom:0;height:5px;width:2px;background:var(--ink)}
+  .school-base:before{left:0}.school-base:after{right:0}
+  .school-part{position:relative;display:inline-block;white-space:nowrap}
+  .school-part svg{position:absolute;left:0;bottom:100%;width:100%;height:18px;overflow:visible;pointer-events:none}
+  .school-part.prefix{color:var(--green-d)}.school-part.root{color:var(--red-d)}.school-part.suffix{color:var(--blue-d)}
+  .school-end{color:var(--purple-d);border:2px solid currentColor;line-height:1.15;min-width:.65em;text-align:center;padding:0 3px;margin-left:2px;white-space:nowrap}
+  .school-end.zero-end{width:.85em;height:.85em;min-width:.85em;padding:0;display:inline-block}
+  .school-caption{font-size:.87rem;color:var(--muted);margin:4px 0 0}
+  .school-builder{border-top:2px dashed var(--line);margin-top:20px;padding-top:17px}
+  .school-builder .school-word{background:#fff9ee;border:2px dashed #e7d6b9;border-radius:16px;margin-top:7px;min-height:104px}
+  .school-note{font-size:.88rem;color:var(--muted);margin:8px 0 0}
+  @media(max-width:700px){.symbol-grid{grid-template-columns:repeat(2,1fr)}.symbol-card:last-child{grid-column:1 / -1}}
+  @media print{.school-section{display:block!important;padding:0 0 12px}.symbol-grid{grid-template-columns:repeat(5,1fr)}.school-section .paper{box-shadow:none;border:1px solid #ccc}}
+
+
+  .workshop {padding:16px 0 52px}
+  .lesson-steps {display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0}
+  .lesson-step {background:#fff;border:2px solid var(--line);border-radius:18px;padding:15px}
+  .lesson-step .step-tag {font-size:.75rem;font-weight:900;color:var(--cta-d);text-transform:uppercase;letter-spacing:.05em}
+  .lesson-step h3 {font-size:1.05rem;margin:7px 0}
+  .lesson-step p {font-size:.9rem;margin:0;color:var(--muted)}
+  .practice-panel {margin-top:22px;background:#f5f9ff;border:2px solid #d4e3fa;border-radius:20px;padding:20px}
+  .practice-top {display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-weight:800;color:var(--muted);font-size:.9rem}
+  .practice-question {font-size:1.2rem;font-weight:800;margin:12px 0}
+  .practice-examples {color:var(--muted);margin-bottom:14px}
+  .practice-options {display:flex;gap:9px;flex-wrap:wrap}
+  .practice-option {border:2px solid #d4e3fa;border-radius:14px;background:white;padding:10px 18px;font-weight:800;color:var(--ink)}
+  .practice-option:hover:not(:disabled){border-color:var(--blue);transform:translateY(-2px)}
+  .practice-option:disabled {cursor:default}
+  .practice-option.right {background:var(--green-s);border-color:var(--green)}
+  .practice-option.wrong {background:var(--red-s);border-color:var(--red)}
+  .practice-feedback {margin-top:14px;padding:12px 14px;border-radius:13px;background:white;min-height:3em}
+  .practice-controls [hidden] {display:none!important}
+  .practice-controls {display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}
+  @media(max-width:800px){.lesson-steps{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:480px){.lesson-steps{grid-template-columns:1fr}}
+
+
+  .family {padding:16px 0 52px}
+  .family-cards {display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0}
+  .family-card {background:#fff;border:2px solid var(--line);border-radius:18px;padding:17px}
+  .family-card h3 {font-size:1.1rem;margin:0 0 8px}
+  .family-card p {margin:0;color:var(--muted);font-size:.94rem}
+  .family-words {font-weight:800;font-size:1.1rem;line-height:2;margin:8px 0}
+  .family-rule {background:#fff3d6;border:2px dashed #f0c979;border-radius:16px;padding:14px 16px;margin:16px 0}
+  .family-option {border:2px solid #d4e3fa;border-radius:14px;background:white;padding:10px 16px;font-weight:800;color:var(--ink)}
+  .family-option:hover:not(:disabled) {border-color:var(--blue);transform:translateY(-2px)}
+  .family-option:disabled {cursor:default}
+  .family-option.right {background:var(--green-s);border-color:var(--green)}
+  .family-option.wrong {background:var(--red-s);border-color:var(--red)}
+  .family-controls [hidden] {display:none!important}
+  @media(max-width:800px){.family-cards{grid-template-columns:1fr}}
+  @media print{.family{display:none!important}}
+
+  .family-explorer {background:#f5f9ff;border:2px solid #d4e3fa;border-radius:20px;padding:20px;margin:22px 0}
+  .family-tabs {display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 18px}
+  .family-tab {border:2px solid #d4e3fa;border-radius:999px;background:white;padding:8px 16px;font-weight:800;color:var(--ink)}
+  .family-tab:hover {border-color:var(--blue)}
+  .family-tab[aria-pressed="true"] {background:var(--blue);border-color:var(--blue);color:#fff}
+  .family-toolbar {display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+  .family-toolbar h3 {margin:0;font-size:1.2rem}
+  .family-toggle {border:2px solid #b5cbed;border-radius:999px;background:white;padding:8px 14px;font-weight:800;color:var(--blue-d)}
+  .family-description {color:var(--muted);margin:8px 0 4px}
+  .family-table {display:grid;gap:9px;margin:16px 0}
+  .family-row {display:grid;grid-template-columns:minmax(190px, 0.9fr) minmax(230px, 1.3fr);gap:12px;align-items:center;background:#fff;border:2px solid var(--line);border-radius:16px;padding:9px 15px}
+  .family-row .school-word {justify-content:flex-start;white-space:nowrap;flex-wrap:nowrap;font-size:1.65rem;padding:20px 2px 9px}
+  .family-row .family-explain {font-size:.94rem;line-height:1.45}
+  .family-row .family-explain p {margin:3px 0 0;color:var(--muted)}
+  .family-kind {display:inline-block;font-size:.75rem;font-weight:900;border-radius:999px;padding:3px 9px;background:var(--blue-s);color:var(--blue-d)}
+  .family-kind.form {background:var(--purple-s);color:var(--purple-d)}
+  .family-kind.original {background:var(--red-s);color:var(--red-d)}
+  .family-explorer.signs-off .school-part svg {visibility:hidden}
+  .family-explorer.signs-off .school-base {border-bottom-color:transparent}
+  .family-explorer.signs-off .school-base:before,.family-explorer.signs-off .school-base:after {visibility:hidden}
+  .family-explorer.signs-off .school-end {border-color:transparent}
+  .family-explorer.signs-off .school-end.zero-end {visibility:hidden}
+  .family-compare {background:#fff3d6;border:2px dashed #f0c979;border-radius:14px;padding:12px 15px;font-size:.94rem}
+  .family-compare p {margin:5px 0}
+  .family-legend {font-size:.85rem;color:var(--muted);margin-top:12px}
+  @media(max-width:650px){.family-row{grid-template-columns:1fr;gap:3px}.family-row .school-word{padding-bottom:6px}.family-explorer{padding:14px}}
+
+
+  /* Телефоны и планшеты: компактная шапка, крупные элементы и защита от переполнения. */
+  @media (max-width: 920px) {
+    section {scroll-margin-top: 142px}
+    .topbar .wrap {gap:4px;min-height:0;padding-top:8px;padding-bottom:6px}
+    .topbar nav {display:flex;flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;width:100%;padding:2px 1px 5px;scrollbar-width:thin}
+    .topbar nav a {flex:0 0 auto;white-space:nowrap;min-height:44px;display:inline-flex;align-items:center}
+    .topbar .brand .logo {width:36px;height:36px}
+    .topbar .brand {font-size:1rem}
+    .hero {padding-top:26px}
+    .field select {font-size:16px;min-height:48px}
+    .chip,.presets button,.family-tab,.family-toggle,.practice-option,.family-option {min-height:44px}
+    .school-builder .school-word {flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;-webkit-overflow-scrolling:touch}
+    .school-base,.school-end {flex-shrink:0}
+  }
+  @media (max-width: 560px) {
+    body {background-attachment:scroll}
+    .topbar .wrap {width:calc(100% - 24px)}
+    .paper,.card,.controls,.preview,.side-box {min-width:0}
+    .family-row .school-word {overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch}
+    .practice-options {align-items:stretch}
+    .practice-option,.family-option {max-width:100%;text-align:left;overflow-wrap:anywhere}
+    .preview-word {justify-content:flex-start}
+  }
+  @media (hover:none) {
+    .card:hover,.btn:hover,.chip:hover,.presets button:hover,.opt:hover:not(:disabled),.practice-option:hover:not(:disabled),.family-option:hover:not(:disabled) {transform:none}
+  }
+
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <span class="logo" aria-hidden="true">📚</span>
+      <span>Словоград<small>учимся разбирать слова</small></span>
+    </a>
+    <nav aria-label="Разделы сайта">
+      <a href="#formula">Порядок</a>
+      <a href="#parts">4 части слова</a>
+      <a href="#symbols">Значки</a>
+      <a href="#constructor">Конструктор</a>
+      <a href="#workshop">Учимся разбирать</a>
+      <a href="#family">Однокоренные</a>
+      <a href="#game" class="nav-play">Игра 🎮</a>
+      <a href="#memo">Памятка</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+
+  <!-- ===== ГЕРОЙ ===== -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-intro">
+      <span class="badge">🎒 2 класс · занимаемся ~10 минут</span>
+      <h1 id="hero-title">Из чего <span>состоит слово?</span></h1>
+      <p><b>В каждом слове есть корень.</b> Но он не всегда стоит первым: перед ним может быть приставка.</p>
+    </div>
+
+    <div class="hero-examples">
+      <div class="kicker">Сравни два слова</div>
+      <h2>Где стоит корень?</h2>
+      <div class="hero-example">
+        <div class="hero-word"><span class="hl r">сад</span></div>
+        <p>Слово начинается с корня <b>-сад-</b>.</p>
+      </div>
+      <div class="hero-example">
+        <div class="hero-word"><span class="hl g">по</span><span class="hl r">сад</span>ка</div>
+        <p>Тот же корень <b>-сад-</b> стоит после приставки <b>по-</b>.</p>
+      </div>
+    </div>
+
+    <div class="hero-actions">
+      <a class="btn" href="#parts">Начать урок ✏️</a>
+      <a class="btn ghost" href="#game">Сразу играть 🎮</a>
+    </div>
+  </section>
+
+  <!-- ===== ФОРМУЛА ===== -->
+  <section class="formula" id="formula" aria-labelledby="formula-title">
+    <div class="section-head" style="text-align:center">
+      <div class="kicker">Главное правило</div>
+      <h2 id="formula-title">Порядок частей слова</h2>
+      <p class="lead" style="margin-inline:auto">Если в слове есть все четыре части, они стоят в таком порядке.</p>
+    </div>
+    <div class="formula-row">
+      <div class="formula-chip" style="--c:var(--green)"><span class="n">1</span><b>Приставка</b><small>перед корнем</small></div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="formula-chip" style="--c:var(--red)"><span class="n">2</span><b>Корень</b><small>самый главный</small></div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="formula-chip" style="--c:var(--blue)"><span class="n">3</span><b>Суффикс</b><small>после корня</small></div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="formula-chip" style="--c:var(--purple)"><span class="n">4</span><b>Окончание</b><small>хвостик слова</small></div>
+    </div>
+    <p class="callout">💡 <b>Корень есть в каждом слове.</b> Остальных частей может не быть. Если окончание нулевое, его обозначают квадратиком <b>□</b>.</p>
+  </section>
+
+  <!-- Школьные обозначения -->
+  <section class="school-section" id="symbols" aria-labelledby="symbols-title">
+    <div class="section-head">
+      <div class="kicker">Как в тетради</div>
+      <h2 id="symbols-title">Школьные значки ✏️</h2>
+      <p class="lead">Когда разбираешь слово в тетради, обозначай каждую часть своим значком. Значки над буквами показывают приставку, корень и суффикс; окончание обводят, а основу выделяют снизу.</p>
+    </div>
+    <div class="paper">
+      <div class="symbol-grid">
+        <div class="symbol-card"><div class="symbol-icon"><svg viewBox="0 0 48 32" aria-hidden="true"><path d="M4 7 H44 V28" fill="none" stroke="currentColor" stroke-width="3"/></svg></div><b>Приставка</b><small>уголок сверху</small></div>
+        <div class="symbol-card"><div class="symbol-icon"><svg viewBox="0 0 48 32" aria-hidden="true"><path d="M4 27 Q24 -6 44 27" fill="none" stroke="currentColor" stroke-width="3"/></svg></div><b>Корень</b><small>дуга сверху</small></div>
+        <div class="symbol-card"><div class="symbol-icon"><svg viewBox="0 0 48 32" aria-hidden="true"><path d="M4 27 L24 5 L44 27" fill="none" stroke="currentColor" stroke-width="3"/></svg></div><b>Суффикс</b><small>домик сверху</small></div>
+        <div class="symbol-card"><div class="symbol-icon">□</div><b>Окончание</b><small>обводим в рамку</small></div>
+        <div class="symbol-card"><div class="symbol-icon"><svg viewBox="0 0 48 32" aria-hidden="true"><path d="M4 7 V25 H44 V7" fill="none" stroke="currentColor" stroke-width="3"/></svg></div><b>Основа</b><small>линия снизу, без окончания</small></div>
+      </div>
+      <div class="school-example">
+        <b>Попробуем вместе: посадка 🌱</b>
+        <div class="school-word" id="school-example-word" aria-label="Посадка: по — приставка, сад — корень, к — суффикс, а — окончание. Основа посадк."></div>
+        <p class="school-caption">Уголок над <b>по</b>, дуга над <b>сад</b>, домик над <b>к</b>. Буква <b>а</b> в рамке, а под основой <b>посадк</b> — линия.</p>
+      </div>
+      <p class="school-note">Если окончание нулевое, нарисуй пустой квадратик после слова: <b>дом□</b>. Основа не включает окончание.</p>
+    </div>
+  </section>
+
+  <!-- ===== 4 ЧАСТИ ===== -->
+  <section class="parts" id="parts" aria-labelledby="parts-title">
+    <div class="section-head">
+      <div class="kicker">Знакомимся</div>
+      <h2 id="parts-title">Четыре части слова</h2>
+      <p class="lead">Нажми на «Ещё примеры», если хочешь посмотреть побольше слов. А в карточках с кнопками можно поиграть прямо сейчас!</p>
+    </div>
+
+    <div class="cards">
+
+      <!-- ПРИСТАВКА -->
+      <article class="card g" aria-labelledby="h-prefix">
+        <div class="card-head">
+          <span class="card-num">1</span><span class="card-emoji" aria-hidden="true">🧩</span>
+          <h3 id="h-prefix">Приставка</h3>
+        </div>
+        <span class="where">🟢 стоит ПЕРЕД корнем</span>
+        <p class="def">Часть слова, которая стоит перед корнем и <b>меняет смысл</b>: куда идти, откуда, как именно. Приставка пишется <b>слитно</b> со словом.</p>
+        <div class="example-box">
+          <div class="example-label">Берём слово «ход» и добавляем приставку</div>
+          <div class="wordline"><span class="seg r">ход</span><span class="arrow-mini">→</span><span class="seg g">пере</span><span class="seg r">ход</span><span class="seg zero">□</span></div>
+          <div class="wordline"><span class="seg g">в</span><span class="seg r">ход</span><span class="arrow-mini">·</span><span class="seg g">вы</span><span class="seg r">ход</span><span class="arrow-mini">·</span><span class="seg g">у</span><span class="seg r">ход</span></div>
+        </div>
+        <div class="mini-game">
+          <div class="example-label" style="text-align:center">Нажми на приставку — слово оживёт</div>
+          <div class="word"><span class="seg g" id="pfx">в</span><span class="seg r">ход</span><span class="seg zero" title="невидимое окончание">□</span></div>
+          <p id="pfx-meaning" role="status">🚪 «вход» — заходишь внутрь.</p>
+          <div class="chip-row" id="pfx-buttons">
+            <button class="chip active" data-p="в">в-</button>
+            <button class="chip" data-p="вы">вы-</button>
+            <button class="chip" data-p="пере">пере-</button>
+            <button class="chip" data-p="при">при-</button>
+            <button class="chip" data-p="у">у-</button>
+            <button class="chip" data-p="под">под-</button>
+            <button class="chip" data-p="по">по-</button>
+          </div>
+        </div>
+        <p class="tip"><b>Запомни:</b> приставка — как стрелка направления 🚦. Она делает <i>новое слово</i>: ход → переход.</p>
+        <details>
+          <summary>Ещё примеры</summary>
+          <ul>
+            <li><span class="hl g">по</span>садка — посадили семечко 🌱</li>
+            <li><span class="hl g">пере</span>лесок — маленький лесок между полями 🌲</li>
+            <li><span class="hl g">при</span>город — город рядом с большим городом 🏘️</li>
+            <li>Не путай: «<b>у</b> дома» — предлог пишется отдельно, а «<b>у</b>ход» — приставка слитно!</li>
+          </ul>
+        </details>
+      </article>
+
+      <!-- КОРЕНЬ -->
+      <article class="card r" aria-labelledby="h-root">
+        <div class="card-head">
+          <span class="card-num">2</span><span class="card-emoji" aria-hidden="true">⭐</span>
+          <h3 id="h-root">Корень</h3>
+        </div>
+        <span class="where">🔴 главная часть слова</span>
+        <p class="def">В корне спрятан <b>общий смысл</b> всех родственных слов. Без корня не бывает ни одного слова! Поэтому он главный, как сердечко ❤️.</p>
+        <div class="example-box">
+          <div class="example-label">Слова-родственники: ищем одинаковую часть</div>
+          <div class="wordline"><span class="seg r">лес</span><span class="seg zero">□</span><span class="arrow-mini">·</span><span class="seg r">лес</span><span class="seg b">ок</span><span class="seg zero">□</span><span class="arrow-mini">·</span><span class="seg r">лес</span><span class="seg b">н</span><span class="seg p">ой</span></div>
+          <div class="wordline"><span class="seg r">лес</span><span class="seg b">ник</span><span class="seg zero">□</span><span class="arrow-mini">·</span><span class="seg g">пере</span><span class="seg r">лес</span><span class="seg b">ок</span><span class="seg zero">□</span></div>
+          <p style="margin:9px 0 0;font-size:.88rem;color:var(--muted)">Везде повторяется <b>-лес-</b> и везде речь про лес. Значит, это корень.</p>
+        </div>
+        <p class="tip"><b>Как проверить:</b> подбери 2–3 родственных слова. Общая часть и есть корень: сад, садик, посадка → корень <b>-сад-</b>.</p>
+        <details>
+          <summary>Ещё примеры</summary>
+          <ul>
+            <li><span class="hl r">дом</span>, <span class="hl r">дом</span>ик, <span class="hl r">дом</span>ашний → корень <b>-дом-</b></li>
+            <li><span class="hl r">кот</span>, <span class="hl r">кот</span>ик, <span class="hl r">кот</span>ёнок → корень <b>-кот-</b></li>
+            <li><span class="hl r">книг</span>а, <span class="hl r">книг</span>и — формы одного слова; корень <b>-книг-</b></li>
+            <li>Внимание: одинаковые буквы не всегда корень. «Горит» и «гора» — разные слова, хотя похожи!</li>
+          </ul>
+        </details>
+      </article>
+
+      <!-- СУФФИКС -->
+      <article class="card b" aria-labelledby="h-suffix">
+        <div class="card-head">
+          <span class="card-num">3</span><span class="card-emoji" aria-hidden="true">✨</span>
+          <h3 id="h-suffix">Суффикс</h3>
+        </div>
+        <span class="where">🔵 стоит ПОСЛЕ корня, перед окончанием</span>
+        <p class="def">Часть слова, которая делает <b>новое слово</b>: превращает большой предмет в маленький, называет детёныша или профессию.</p>
+        <div class="example-box">
+          <div class="example-label">Волшебные «колпачки»</div>
+          <div class="wordline"><span class="seg r">дом</span><span class="arrow-mini">→</span><span class="seg r">дом</span><span class="seg b">ик</span><span class="seg zero">□</span><span style="font-size:.9rem;color:var(--muted)">маленький дом</span></div>
+          <div class="wordline"><span class="seg r">кот</span><span class="arrow-mini">→</span><span class="seg r">кот</span><span class="seg b">ёнок</span><span class="seg zero">□</span><span style="font-size:.9rem;color:var(--muted)">детёныш</span></div>
+          <div class="wordline"><span class="seg r">лес</span><span class="arrow-mini">→</span><span class="seg r">лес</span><span class="seg b">ник</span><span class="seg zero">□</span><span style="font-size:.9rem;color:var(--muted)">профессия</span></div>
+        </div>
+        <p class="tip"><b>Запомни:</b> суффикс всегда <b>справа</b> от корня: лес<b>ник</b>, гриб<b>ок</b>, лес<b>н</b>ой. Приставка — слева!</p>
+        <details>
+          <summary>Ещё примеры</summary>
+          <ul>
+            <li>гриб → гриб<span class="hl b">ок</span> 🍄, стол → стол<span class="hl b">ик</span> 🪑</li>
+            <li>сад → сад<span class="hl b">ик</span> 🧒, лес → лес<span class="hl b">н</span>ой 🐿️</li>
+            <li>по<span class="hl r">сад</span><span class="hl b">к</span>а — тут тоже суффикс <b>-к-</b>!</li>
+            <li>В слове может быть два суффикса, но в 2 классе мы пока берём один 🙂</li>
+          </ul>
+        </details>
+      </article>
+
+      <!-- ОКОНЧАНИЕ -->
+      <article class="card p" aria-labelledby="h-ending">
+        <div class="card-head">
+          <span class="card-num">4</span><span class="card-emoji" aria-hidden="true">🎀</span>
+          <h3 id="h-ending">Окончание</h3>
+        </div>
+        <span class="where">🟣 хвостик в конце слова</span>
+        <p class="def">Часть слова, которая <b>меняется</b>, чтобы слова дружили в предложении. Окончание меняет только <i>форму</i> слова, а смысл и корень остаются теми же.</p>
+        <div class="mini-game">
+          <div class="example-label" style="text-align:center">Меняем хвостик — книга остаётся книгой</div>
+          <div class="word"><span class="seg r">книг</span><span class="seg p" id="ending-letter">а</span></div>
+          <p id="ending-sentence" role="status">У меня <b>книга</b>.</p>
+          <div class="chip-row" id="ending-buttons">
+            <button class="chip active" data-e="а">-а</button>
+            <button class="chip" data-e="и">-и</button>
+            <button class="chip" data-e="у">-у</button>
+            <button class="chip" data-e="ой">-ой</button>
+            <button class="chip" data-e="е">-е</button>
+          </div>
+        </div>
+        <div class="example-box">
+          <div class="example-label">И секрет для любознательных 🤫</div>
+          <p style="margin:0;font-size:.94rem">Иногда окончание <b>не видно</b>: дом<b>□</b>, стол<b>□</b>, домик<b>□</b>. Мы рисуем пустой квадратик и называем его <b>нулевым окончанием</b>.</p>
+          <div class="wordline" style="margin-top:9px"><span class="seg r">дом</span><span class="seg zero">□</span><span class="arrow-mini">→</span><span class="seg r">дом</span><span class="seg p">а</span><span style="font-size:.9rem;color:var(--muted)">«около дома» — окончание появилось!</span></div>
+        </div>
+        <p class="tip"><b>Основа</b> — это всё слово <u>без окончания</u>: приставка + корень + суффикс. В «книгой» основа — <b>книг</b>.</p>
+        <details>
+          <summary>Ещё примеры</summary>
+          <ul>
+            <li>стол<span class="hl p">□</span> → стол<span class="hl p">а</span> → стол<span class="hl p">у</span> → стол<span class="hl p">ом</span></li>
+            <li>У меня книг<span class="hl p">а</span>. Нет книг<span class="hl p">и</span>. Читаю книг<span class="hl p">у</span>. Любуюсь книг<span class="hl p">ой</span>.</li>
+            <li>Окончание не делает новое слово — это всё та же книга 📖</li>
+          </ul>
+        </details>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ===== КОНСТРУКТОР ===== -->
+  <section class="constructor" id="constructor" aria-labelledby="constructor-title">
+    <div class="section-head">
+      <div class="kicker">Собираем сами</div>
+      <h2 id="constructor-title">Конструктор слов 🧱</h2>
+      <p class="lead">Выбери части слова из списков — и посмотри, что получилось. Если слова в нашем словарике нет, мы честно скажем и подскажем похожее!</p>
+    </div>
+
+    <div class="builder">
+      <div class="controls">
+        <h3>Выбери части слова</h3>
+        <p class="hint">«Нет» означает, что этой части в слове просто нет. А □ — невидимое (нулевое) окончание.</p>
+
+        <div class="field g">
+          <label for="sel-p"><span class="dot g"></span> 1. Приставка</label>
+          <select id="sel-p" aria-label="Выбери приставку"></select>
+        </div>
+        <div class="field r">
+          <label for="sel-r"><span class="dot r"></span> 2. Корень (обязательно!)</label>
+          <select id="sel-r" aria-label="Выбери корень"></select>
+        </div>
+        <div class="field b">
+          <label for="sel-s"><span class="dot b"></span> 3. Суффикс</label>
+          <select id="sel-s" aria-label="Выбери суффикс"></select>
+        </div>
+        <div class="field p">
+          <label for="sel-e"><span class="dot p"></span> 4. Окончание</label>
+          <select id="sel-e" aria-label="Выбери окончание"></select>
+        </div>
+
+        <div class="example-label" style="margin-top:18px">Готовые слова — нажми и разбери</div>
+        <div class="presets" id="presets"></div>
+      </div>
+
+      <div class="preview">
+        <div class="preview-title">Твоё слово</div>
+        <div class="preview-word" id="preview-word" aria-live="polite"></div>
+        <div class="legend">
+          <span><i class="dot g"></i> приставка</span>
+          <span><i class="dot r"></i> корень</span>
+          <span><i class="dot b"></i> суффикс</span>
+          <span><i class="dot p"></i> окончание</span>
+          <span>□ — нулевое окончание</span>
+        </div>
+        <p class="basis" id="basis"></p>
+        <div class="school-builder">
+          <div class="preview-title">✏️ Как в школьной тетради</div>
+          <div class="school-word" id="school-builder-word" aria-live="polite"></div>
+          <p class="school-note" id="school-builder-note">Значки показывают выбранные части. Линия снизу — основа слова.</p>
+        </div>
+        <div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+        <div class="builder-actions">
+          <button class="btn blue small" id="random-word" type="button">🎲 Случайное слово</button>
+          <button class="btn ghost small" id="clear-word" type="button">↺ Начать с «посадки»</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Пошаговая мастерская -->
+  <section class="workshop" id="workshop" aria-labelledby="workshop-title">
+    <div class="section-head">
+      <div class="kicker">Учимся по шагам</div>
+      <h2 id="workshop-title">Мастерская разбора ✏️</h2>
+      <p class="lead">Сначала посмотри, как мы рассуждаем, а потом попробуй сам. Ошибаться не страшно: игра подскажет, как найти ответ.</p>
+    </div>
+    <div class="paper">
+      <h3>Разберём вместе слово «посадка» 🌱</h3>
+      <p>Не угадываем части на глаз: изменяем слово и подбираем родственные слова.</p>
+      <div class="school-word" id="workshop-example" aria-label="Посадка: приставка по, корень сад, суффикс к, окончание а; основа посадк"></div>
+      <div class="lesson-steps">
+        <div class="lesson-step"><span class="step-tag">Шаг 1 · окончание</span><h3>Измени слово</h3><p>Посадк<b>а</b> → посадк<b>и</b> → посадк<b>у</b>. Меняется <b>-а</b>: это окончание. Обведи его рамкой.</p></div>
+        <div class="lesson-step"><span class="step-tag">Шаг 2 · корень</span><h3>Найди родственников</h3><p>Посадка, посадить, садить. Общая часть <b>-сад-</b> связана со смыслом «сажать». Над корнем нарисуй дугу.</p></div>
+        <div class="lesson-step"><span class="step-tag">Шаг 3 · приставка</span><h3>Посмотри перед корнем</h3><p>Перед корнем осталось <b>по-</b>. Это приставка. Обозначь её уголком сверху.</p></div>
+        <div class="lesson-step"><span class="step-tag">Шаг 4 · суффикс</span><h3>Посмотри после корня</h3><p>Между корнем и окончанием стоит <b>-к-</b>. Это суффикс. Нарисуй над ним домик. Основа — <b>посадк</b>.</p></div>
+      </div>
+      <p class="tip" style="background:#fff3d6">💡 Сначала ищем окончание и корень, а потом — приставку и суффикс. В слове может не быть приставки или суффикса!</p>
+      <div class="practice-panel" id="practice-panel">
+        <div class="practice-top"><span id="practice-progress"></span><span id="practice-score"></span></div>
+        <div id="practice-body">
+          <div class="practice-question" id="practice-question"></div>
+          <div class="practice-examples" id="practice-examples"></div>
+          <div class="practice-options" id="practice-options" aria-label="Выбери ответ"></div>
+          <div class="practice-feedback" id="practice-feedback" role="status" aria-live="polite">Выбери ответ. Если понадобится помощь, нажми «Подсказка».</div>
+          <div class="practice-controls"><button class="btn ghost small" id="practice-hint" type="button">💡 Подсказка</button><button class="btn blue small" id="practice-next" type="button" hidden>Дальше →</button></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Однокоренные слова -->
+  <section class="family" id="family" aria-labelledby="family-title">
+    <div class="section-head"><div class="kicker">Слова-родственники</div>
+      <h2 id="family-title">Что такое однокоренные слова? 🌳</h2>
+      <p class="lead">У слов, как и у людей, бывают родственники. Однокоренные слова имеют общий корень и связаны по смыслу.</p>
+    </div>
+    <div class="paper">
+      <h3>Два условия родства</h3>
+      <p>Однокоренные слова имеют <b>общий корень</b> и <b>связаны по смыслу</b>. Например, <b>лес, лесок, лесной</b> — разные слова об одном семействе: у них общий корень <b>-лес-</b>.</p>
+      <div class="family-rule"><b>Важное отличие:</b> приставка и суффикс помогают образовать <b>новое слово</b>, а окончание меняет лишь <b>форму того же слова</b>. Сравни: <b>дом → домик</b> — новое слово; <b>дом → дома</b> — форма слова «дом».</div>
+
+      <div class="family-explorer" id="family-explorer">
+        <div class="family-toolbar"><h3>🌳 Рассмотри семьи слов</h3><button class="family-toggle" id="family-symbol-toggle" type="button" aria-pressed="true">✏️ Значки: включены</button></div>
+        <p class="family-description">Выбери семью. В каждой строке показаны части слова и объяснение. Нажми на кнопку значков, чтобы скрыть или снова показать школьный разбор.</p>
+        <div class="family-tabs" id="family-tabs" role="group" aria-label="Выбери семью однокоренных слов"></div>
+        <div id="family-family-description" class="family-description" aria-live="polite"></div>
+        <div class="family-table" id="family-table"></div>
+        <div class="legend"><span><i class="dot g"></i> приставка</span><span><i class="dot r"></i> корень</span><span><i class="dot b"></i> суффикс</span><span><i class="dot p"></i> окончание</span></div>
+        <p class="family-legend">Со значками: уголок — приставка, дуга — корень, домик — суффикс, рамка — окончание, линия снизу — основа. Пустая рамка после слова обозначает нулевое окончание.</p>
+        <div class="family-compare"><b>Что изменилось?</b><p><b>Новое слово:</b> добавили приставку или суффикс, и у слова появилось своё значение.</p><p><b>Форма слова:</b> изменили окончание — смысл слова остался прежним. Формы показываем для сравнения: это не разные однокоренные слова.</p></div>
+      </div>
+      <div class="family-cards">
+        <div class="family-card"><h3>⚠️ Букв мало!</h3><p><b>Вода</b> и <b>водитель</b> начинаются похоже, но не родственники по смыслу. Одинаковые буквы сами по себе ещё не доказывают родство.</p></div>
+        <div class="family-card"><h3>📖 Форма — не новое слово</h3><p><b>Книга, книги, книгу</b> — формы одного слова. А <b>книга и книжка</b> — разные родственные слова.</p></div>
+        <div class="family-card"><h3>🔄 Корень может меняться</h3><p>В словах <b>снег</b> и <b>снежный</b> буквы <b>г</b> и <b>ж</b> чередуются. Слова связаны по смыслу, хотя корень выглядит немного по-разному.</p></div>
+      </div>
+      <h3>Теперь попробуй сам 🎮</h3>
+      <p>Ответь на вопросы о словах-родственниках. Если ошибёшься, игра поможет разобраться.</p>
+      <div class="practice-panel" id="family-game">
+        <div class="practice-top"><span id="family-counter"></span><span id="family-score"></span></div>
+        <div id="family-game-body"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ИГРА ===== -->
+  <section class="game" id="game" aria-labelledby="game-title">
+    <div class="section-head" style="text-align:center">
+      <div class="kicker">Проверь себя</div>
+      <h2 id="game-title">Угадай часть слова 🔍</h2>
+      <p class="lead" style="margin-inline:auto">8 коротких вопросов. Ошибиться можно — мы всё равно всё объясним!</p>
+    </div>
+
+    <div class="paper quiz" id="quiz">
+      <div class="quiz-top">
+        <span id="quiz-counter">Вопрос 1 из 8</span>
+        <span id="quiz-stars">⭐ 0</span>
+      </div>
+      <div class="progress" role="progressbar" aria-label="Прогресс викторины" aria-valuemin="0" aria-valuemax="8" aria-valuenow="0" id="quiz-progress"><i id="quiz-bar"></i></div>
+      <div id="quiz-body">
+        <div class="question" id="quiz-question"></div>
+        <div class="options" id="quiz-options"></div>
+        <div class="quiz-feedback" id="quiz-feedback" role="status" aria-live="polite"></div>
+        <div class="quiz-bottom">
+          <span class="score" id="quiz-score">Набрано звёзд: 0</span>
+          <button class="btn small" id="quiz-next" type="button" style="display:none">Дальше →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ПАМЯТКА ===== -->
+  <section class="memo" id="memo" aria-labelledby="memo-title">
+    <div class="section-head">
+      <div class="kicker">Шпаргалка</div>
+      <h2 id="memo-title">Как разобрать слово по составу</h2>
+      <p class="lead">Делай шаги по порядку — и ни одна часть не потеряется. Можно распечатать и повесить над столом 📌</p>
+    </div>
+
+    <div class="memo-grid">
+      <div class="paper">
+        <ol class="steps">
+          <li><span class="n"></span><div><b>1. Измени слово — найди окончание</b><p>книга → книги → книгой: окончания -а, -и, -ой. Дом□ → дома → дому: в форме «дом» окончание нулевое. Если слово совсем не меняется, как «метро», окончания нет.</p></div></li>
+          <li><span class="n"></span><div><b>2. Отдели основу</b><p>Всё, что осталось без окончания, — основа. В слове «книгой» основа «книг».</p></div></li>
+          <li><span class="n"></span><div><b>3. Подбери родственные слова — найди корень</b><p>лес, лесок, лесной, лесник. Общая часть <b>-лес-</b> — корень. Он есть всегда!</p></div></li>
+          <li><span class="n"></span><div><b>4. Посмотри налево от корня</b><p>Если перед корнем есть часть, это приставка: <b>пере</b>лесок, <b>по</b>садка.</p></div></li>
+          <li><span class="n"></span><div><b>5. Посмотри направо от корня</b><p>Часть между корнем и окончанием — суффикс: лес<b>ник</b>□, перелес<b>ок</b>□.</p></div></li>
+          <li><span class="n"></span><div><b>6. Проверь себя</b><p>Прочитай по порядку: приставка → корень → суффикс → окончание. Все части на своих местах? Молодец! 🌟</p></div></li>
+        </ol>
+      </div>
+
+      <aside class="side-box">
+        <h3>⚠️ Ловушки</h3>
+        <ul>
+          <li><b>Приставка ≠ предлог.</b> «<b>у</b> дома» пишем отдельно, «<b>у</b>ход» — слитно.</li>
+          <li><b>Суффикс после корня</b>, приставка до корня. Перепутать легко, а всё просто: слева / справа.</li>
+          <li><b>Окончание не меняет смысла.</b> «Книга» и «книги» — одно и то же слово, разные формы.</li>
+          <li><b>Не все части обязательны.</b> В слове «дом» только корень -дом- и нулевое окончание □.</li>
+        </ul>
+        <div class="order">
+          <span class="seg g">приставка</span>→<span class="seg r">корень</span>→<span class="seg b">суффикс</span>→<span class="seg p">окончание</span>
+        </div>
+        <button class="btn ghost print-btn" type="button" onclick="window.print()">🖨️ Распечатать памятку</button>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>📚 Словоград · тренажёр по составу слова для 2 класса. Все примеры — настоящие слова русского языка.</span>
+    <a href="#top">Наверх ↑</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  const $  = (s, root) => (root || document).querySelector(s);
+  const $$ = (s, root) => Array.from((root || document).querySelectorAll(s));
+
+  /* ============ 1. Игра «приставки» в карточке ============ */
+  const prefixInfo = {
+    "в":    "🚪 «вход» — заходишь внутрь.",
+    "вы":   "↗️ «выход» — выходишь наружу.",
+    "пере": "🌉 «переход» — идёшь через дорогу.",
+    "при":  "🏠 «приход» — пришёл домой.",
+    "у":    "👋 «уход» — уходишь, прощаешься.",
+    "под":  "🪜 «подход» — подходишь ближе.",
+    "по":   "🎒 «поход» — идём в поход с рюкзаком."
+  };
+  $("#pfx-buttons").addEventListener("click", e => {
+    const btn = e.target.closest("button[data-p]");
+    if(!btn) return;
+    $$("#pfx-buttons .chip").forEach(b => b.classList.toggle("active", b === btn));
+    $("#pfx").textContent = btn.dataset.p;
+    $("#pfx-meaning").textContent = prefixInfo[btn.dataset.p];
+  });
+
+  /* ============ 2. Игра «окончания» в карточке ============ */
+  const endingInfo = {
+    "а":  "У меня <b>книга</b>.",
+    "и":  "На полке <b>книги</b>. Нет <b>книги</b>.",
+    "у":  "Я читаю <b>книгу</b>.",
+    "ой": "Я любуюсь <b>книгой</b> ✨",
+    "е":  "Я пишу о <b>книге</b> ✍️"
+  };
+  $("#ending-buttons").addEventListener("click", e => {
+    const btn = e.target.closest("button[data-e]");
+    if(!btn) return;
+    $$("#ending-buttons .chip").forEach(b => b.classList.toggle("active", b === btn));
+    $("#ending-letter").textContent = btn.dataset.e;
+    $("#ending-sentence").innerHTML = endingInfo[btn.dataset.e];
+  });
+
+  /* ============ 3. Конструктор слов ============ */
+  const OPTIONS = {
+    p: [["", "нет приставки"], ["по", "по-"], ["пере", "пере-"], ["в", "в-"], ["вы", "вы-"], ["при", "при-"], ["у", "у-"], ["под", "под-"], ["за", "за-"], ["на", "на-"], ["до", "до-"], ["про", "про-"], ["от", "от-"]],
+    r: [["лес", "-лес-"], ["дом", "-дом-"], ["кот", "-кот-"], ["книг", "-книг-"], ["ход", "-ход-"], ["стол", "-стол-"], ["сад", "-сад-"], ["гриб", "-гриб-"], ["снег", "-снег-"], ["вод", "-вод-"], ["нос", "-нос-"], ["воз", "-воз-"], ["сок", "-сок-"]],
+    s: [["", "нет суффикса"], ["ик", "-ик-"], ["ок", "-ок-"], ["ёнок", "-ёнок-"], ["ник", "-ник-"], ["н", "-н-"], ["к", "-к-"], ["ов", "-ов-"], ["ищ", "-ищ-"]],
+    e: [["", "□ нулевое"], ["а", "-а"], ["и", "-и"], ["ы", "-ы"], ["у", "-у"], ["ой", "-ой"], ["ом", "-ом"], ["е", "-е"], ["ый", "-ый"], ["ая", "-ая"], ["ое", "-ое"], ["ые", "-ые"], ["ами", "-ами"]]
+  };
+
+  // Словарь настоящих слов: ключ "приставка|корень|суффикс|окончание"
+  const DICT = {};
+  function add(p, r, s, e, emoji, phrase, tip){
+    DICT[[p, r, s, e].join("|")] = {emoji: emoji, phrase: phrase, tip: tip || ""};
+  }
+  /* лес */
+  add("", "лес", "", "", "🌲", "«Лес». Только корень -лес- и невидимое окончание □.");
+  add("", "лес", "ок", "", "🌳", "«Лесок» — маленький лес. Суффикс -ок- всё уменьшил!");
+  add("", "лес", "н", "ой", "🐿️", "«Лесной» — например, лесной зверёк. -н- + окончание -ой.");
+  add("", "лес", "ник", "", "🧑‍🌾", "«Лесник» охраняет лес. Суффикс -ник- называет профессию.");
+  add("пере", "лес", "ок", "", "🌲", "«Перелесок» — маленький лесок среди поля. Тут есть приставка, корень, суффикс и нулевое окончание □.", "Все четыре части на месте!");
+  add("", "лес", "", "а", "🦌", "«Опушка леса». Появилось окончание -а.");
+  add("", "лес", "", "у", "🚶", "«Идём по лесу». Окончание -у.");
+  add("", "лес", "", "ом", "🌄", "«За лесом — речка». Окончание -ом.");
+  add("", "лес", "", "е", "🐦", "«Читаем сказку о лесе». Окончание -е.");
+  /* дом */
+  add("", "дом", "", "", "🏠", "«Дом». Корень -дом- и нулевое окончание □.");
+  add("", "дом", "ик", "", "🏡", "«Домик» — маленький дом. Помог суффикс -ик-!");
+  add("", "дом", "ик", "а", "🔍", "«Нет домика». Окончание -а, а корень и суффикс не изменились.");
+  add("", "дом", "", "а", "🌳", "«Около дома стоит берёза». Окончание -а.");
+  add("", "дом", "", "у", "🚪", "«Подошли к дому». Окончание -у.");
+  add("", "дом", "", "ом", "☀️", "«За домом — солнышко». Окончание -ом.");
+  add("", "дом", "", "е", "🛋️", "«В доме тепло». Окончание -е.");
+  /* кот */
+  add("", "кот", "", "", "🐱", "«Кот». Корень -кот- и нулевое окончание □.");
+  add("", "кот", "ик", "", "🐾", "«Котик» — ласковое слово. Суффикс -ик-.");
+  add("", "кот", "ёнок", "", "🐈", "«Котёнок» — детёныш кота. Суффикс -ёнок-.");
+  add("", "кот", "ик", "а", "🥛", "«Нет котика». Окончание -а.");
+  add("", "кот", "", "а", "🧶", "«Нет кота». Окончание -а.");
+  add("", "кот", "", "у", "🥛", "«Дали коту молоко». Окончание -у.");
+  add("", "кот", "", "ом", "🧶", "«Играем с котом». Окончание -ом.");
+  add("", "кот", "", "е", "📖", "«Рассказ о коте». Окончание -е.");
+  add("", "кот", "", "ы", "🐱🐱", "«Коты» — несколько котов. Окончание -ы.");
+  /* книга */
+  add("", "книг", "", "а", "📖", "«У меня книга». Окончание -а.");
+  add("", "книг", "", "и", "📚", "«На полке книги». Окончание -и. Корень тот же!");
+  add("", "книг", "", "у", "📕", "«Читаю книгу». Окончание -у.");
+  add("", "книг", "", "ой", "✨", "«Любуюсь книгой». Окончание -ой.");
+  add("", "книг", "", "е", "✍️", "«Пишу о книге». Окончание -е.");
+  /* ход */
+  add("", "ход", "", "", "🚶", "«Ход» — движение вперёд. Корень -ход- и □.");
+  add("в", "ход", "", "", "🚪", "«Вход» — заходишь внутрь.");
+  add("вы", "ход", "", "", "↗️", "«Выход» — выходишь наружу.");
+  add("пере", "ход", "", "", "🌉", "«Переход» — идёшь через дорогу.");
+  add("при", "ход", "", "", "🏠", "«Приход» — пришёл домой.");
+  add("у", "ход", "", "", "👋", "«Уход» — уходишь.");
+  add("под", "ход", "", "", "🪜", "«Подход» — подходишь ближе.");
+  add("по", "ход", "", "", "🎒", "«Поход» — идём в поход.");
+  add("за", "ход", "", "", "🌇", "«Заход солнца» — солнышко садится. Приставка за-.");
+  add("пере", "ход", "", "а", "🚸", "«До перехода пять шагов». Окончание -а.");
+  /* стол */
+  add("", "стол", "", "", "🪑", "«Стол». Корень -стол- и нулевое окончание □.");
+  add("", "стол", "ик", "", "🪴", "«Столик» — маленький столик.");
+  add("", "стол", "", "а", "🦵", "«Ножка стола». Окончание -а.");
+  add("", "стол", "", "у", "🪑", "«Подошли к столу». Окончание -у.");
+  add("", "стол", "", "ом", "✏️", "«Рисуем за столом». Окончание -ом.");
+  add("", "стол", "", "е", "📚", "«Книга на столе». Окончание -е.");
+  add("", "стол", "", "ы", "🏫", "«В классе новые столы». Окончание -ы.");
+  /* сад */
+  add("", "сад", "", "", "🌳", "«Сад». Корень -сад- и □.");
+  add("", "сад", "ик", "", "🧒", "«Садик» — маленький сад или детский садик.");
+  add("", "сад", "ов", "ый", "🌻", "«Садовый» — например, садовые цветы. Суффикс -ов- и окончание -ый.");
+  add("по", "сад", "к", "а", "🌱", "«Посадка семян весной». Здесь есть ВСЕ четыре части слова!", "по- приставка, -сад- корень, -к- суффикс, -а окончание.");
+  add("пере", "сад", "к", "а", "🚌", "«Пересадка на другой автобус». Тоже все четыре части!");
+  add("по", "сад", "к", "и", "🌱🌱", "«Время посадки семян». Окончание -и.");
+  add("", "сад", "", "а", "🚶", "«Дорожка сада». Окончание -а.");
+  add("", "сад", "", "ы", "🏙️", "«Городские сады». Окончание -ы.");
+  add("", "сад", "", "у", "🍎", "«Идём по саду». Окончание -у.");
+  add("", "сад", "", "е", "🐦", "«В саде поют птицы». Окончание -е.");
+  add("", "сад", "", "ом", "🌊", "«За садом — речка». Окончание -ом.");
+  /* гриб */
+  add("", "гриб", "", "", "🍄", "«Гриб». Корень -гриб- и □.");
+  add("", "гриб", "ок", "", "🍄", "«Грибок» — маленький гриб. Суффикс -ок-.");
+  add("", "гриб", "", "а", "🎩", "«Шляпка гриба». Окончание -а.");
+  add("", "гриб", "", "ы", "🧺", "«Собираем грибы». Окончание -ы.");
+  add("", "гриб", "", "ом", "🔎", "«Любуюсь грибом». Окончание -ом.");
+
+  /* Ещё слова и формы для новых открытий */
+  add("на", "ход", "к", "а", "🔍", "«Находка» — то, что нашли. Приставка на-, корень -ход-, суффикс -к-, окончание -а.");
+  add("до", "ход", "", "", "💰", "«Доход» — деньги, которые получают.");
+  add("про", "ход", "", "", "🚶", "«Проход» — место, где можно пройти.");
+  add("от", "ход", "", "", "🚂", "«Отход поезда» — момент, когда поезд отправляется.");
+  add("за", "ход", "", "а", "🌇", "«После захода солнца». Окончание -а.");
+  add("в", "ход", "", "а", "🚪", "«У входа в школу». Окончание -а.");
+  add("вы", "ход", "", "а", "🚪", "«У выхода ждут ребята». Окончание -а.");
+  add("под", "ход", "", "а", "👟", "«Дорожка для подхода к дому». Окончание -а.");
+  add("под", "лес", "ок", "", "🌿", "«Подлесок» — кусты и маленькие деревья под большими деревьями.");
+  add("", "лес", "н", "ая", "🌲", "«Лесная тропинка». Окончание -ая.");
+  add("", "лес", "н", "ое", "🌲", "«Лесное озеро». Окончание -ое.");
+  add("", "лес", "н", "ые", "🍄", "«Лесные грибы». Окончание -ые.");
+  add("", "дом", "ищ", "е", "🏰", "«Домище» — очень большой дом. Суффикс -ищ-.");
+  add("", "дом", "ик", "у", "🏡", "«Подошли к домику». Окончание -у.");
+  add("", "дом", "ик", "ом", "🏡", "«Перед домиком цветы». Окончание -ом.");
+  add("", "стол", "ик", "а", "🪑", "«Ножка столика». Окончание -а.");
+  add("", "стол", "ик", "у", "🪑", "«Подошли к столику». Окончание -у.");
+  add("", "стол", "ик", "ом", "🪑", "«За столиком сидит кот». Окончание -ом.");
+  add("", "кот", "ик", "у", "🐱", "«Дали котику молоко». Окончание -у.");
+  add("", "кот", "ик", "ом", "🐱", "«Играем с котиком». Окончание -ом.");
+  add("", "сад", "ик", "а", "🌷", "«Около садика растут цветы». Окончание -а.");
+  add("", "сад", "ик", "у", "🌷", "«Идём к садику». Окончание -у.");
+  add("", "сад", "ов", "ая", "🌻", "«Садовая дорожка». Суффикс -ов-, окончание -ая.");
+  add("", "сад", "ов", "ое", "🌼", "«Садовое растение». Окончание -ое.");
+  add("", "сад", "ов", "ые", "🌼", "«Садовые цветы». Окончание -ые.");
+  add("", "гриб", "н", "ой", "🍄", "«Грибной суп». Суффикс -н-, окончание -ой.");
+  add("", "гриб", "н", "ая", "🍄", "«Грибная полянка». Окончание -ая.");
+  add("", "гриб", "н", "ое", "🍄", "«Грибное место». Окончание -ое.");
+  add("", "гриб", "н", "ые", "🍄", "«Грибные места». Окончание -ые.");
+  add("", "снег", "", "", "❄️", "«Снег». Корень -снег- и нулевое окончание □.");
+  add("", "снег", "", "а", "❄️", "«Много снега». Окончание -а.");
+  add("", "снег", "", "у", "⛄", "«Идём по снегу». Окончание -у.");
+  add("", "снег", "", "ом", "🌨️", "«Земля покрыта снегом». Окончание -ом.");
+  add("", "снег", "", "е", "🐾", "«Следы на снеге». Окончание -е.");
+  add("", "вод", "", "а", "💧", "«Вода». Корень -вод-, окончание -а.");
+  add("", "вод", "", "ы", "💧", "«Стакан воды». Окончание -ы.");
+  add("", "вод", "", "у", "💧", "«Пьём воду». Окончание -у.");
+  add("", "вод", "", "ой", "💧", "«Поливаем цветы водой». Окончание -ой.");
+  add("", "вод", "", "е", "💧", "«Лодка на воде». Окончание -е.");
+  add("", "вод", "н", "ый", "🌊", "«Водный транспорт». Суффикс -н-, окончание -ый.");
+  add("", "вод", "н", "ая", "🌊", "«Водная гладь». Окончание -ая.");
+  add("", "вод", "н", "ое", "🌊", "«Водное растение». Окончание -ое.");
+  add("", "вод", "н", "ые", "🌊", "«Водные растения». Окончание -ые.");
+  add("", "нос", "", "", "👃", "«Нос». Корень -нос- и нулевое окончание □.");
+  add("", "нос", "ик", "", "👃", "«Носик» — маленький нос. Суффикс -ик-.");
+  add("", "нос", "", "а", "👃", "«Кончик носа». Окончание -а.");
+  add("", "нос", "", "ом", "👃", "«Дышим носом». Окончание -ом.");
+  add("", "сок", "", "", "🧃", "«Сок». Корень -сок- и нулевое окончание □.");
+  add("", "сок", "", "а", "🧃", "«Стакан сока». Окончание -а.");
+  add("", "сок", "", "ом", "🧃", "«Стакан с соком». Окончание -ом.");
+  add("", "воз", "", "", "🛒", "«Воз» — большая телега с грузом. Корень -воз-.");
+  add("", "воз", "", "а", "🛒", "«Колесо воза». Окончание -а.");
+  add("под", "воз", "", "", "🚚", "«Подвоз» — доставка чего-нибудь поближе.");
+  add("вы", "воз", "", "", "🚛", "«Вывоз» — когда что-то вывозят.");
+  add("в", "воз", "", "", "🚛", "«Ввоз» — когда что-то ввозят.");
+  add("пере", "воз", "к", "а", "🚚", "«Перевозка» — доставка груза или пассажиров.");
+  add("", "стол", "", "ами", "🪑", "«Между столами». Окончание -ами.");
+  add("", "дом", "", "ами", "🏘️", "«Между домами». Окончание -ами.");
+  add("", "кот", "", "ами", "🐈", "«Играем с котами». Окончание -ами.");
+  add("", "гриб", "", "ами", "🍄", "«Корзинка с грибами». Окончание -ами.");
+  add("", "книг", "", "ами", "📚", "«Полка с книгами». Окончание -ами.");
+
+
+  Object.keys(OPTIONS).forEach(k => {
+    const sel = $("#sel-" + k);
+    OPTIONS[k].forEach(([val, label]) => {
+      const o = document.createElement("option");
+      o.value = val; o.textContent = label;
+      sel.appendChild(o);
+    });
+  });
+
+  const PRESETS = [
+    ["Посадка",   ["по", "сад", "к", "а"]],
+    ["Домик",     ["", "дом", "ик", ""]],
+    ["Переход",   ["пере", "ход", "", ""]],
+    ["Книгой",    ["", "книг", "", "ой"]],
+    ["Лесной",    ["", "лес", "н", "ой"]],
+    ["Котёнок",   ["", "кот", "ёнок", ""]],
+    ["Перелесок", ["пере", "лес", "ок", ""]],
+    ["Находка", ["на", "ход", "к", "а"]],
+    ["Снег", ["", "снег", "", ""]],
+    ["Водная", ["", "вод", "н", "ая"]],
+    ["Носик", ["", "нос", "ик", ""]],
+    ["Перевозка", ["пере", "воз", "к", "а"]]
+  ];
+  const presetsBox = $("#presets");
+  PRESETS.forEach(([name, vals]) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.textContent = name;
+    b.addEventListener("click", () => { setParts(vals); });
+    presetsBox.appendChild(b);
+  });
+
+  function setParts(vals){
+    ["p", "r", "s", "e"].forEach((k, i) => {
+      const sel = $("#sel-" + k);
+      sel.value = vals[i];
+      // если значение отсутствует в списке — оставляем первый вариант
+      if(sel.value !== vals[i]) sel.selectedIndex = 0;
+    });
+    render();
+  }
+
+  function seg(cls, text, title){
+    return '<span class="seg ' + cls + '"' + (title ? ' title="' + title + '"' : "") + '>' + text + "</span>";
+  }
+
+  function schoolPart(text, kind){
+    if(!text) return "";
+    const shapes = {
+      prefix: '<path d="M2 3 H98 V17"/>',
+      root: '<path d="M2 17 Q50 -10 98 17"/>',
+      suffix: '<path d="M2 17 L50 2 L98 17"/>'
+    };
+    return '<span class="school-part ' + kind + '"><svg viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.5" vector-effect="non-scaling-stroke">' + shapes[kind] + '</g></svg>' + text + '</span>';
+  }
+  function schoolWord(p, r, s, e){
+    return '<span class="school-base">' + schoolPart(p, 'prefix') + schoolPart(r, 'root') + schoolPart(s, 'suffix') + '</span>' +
+      (e ? '<span class="school-end">' + e + '</span>' : '<span class="school-end zero-end" aria-hidden="true"></span>');
+  }
+  $("#school-example-word").innerHTML = schoolWord("по", "сад", "к", "а");
+
+  function render(){
+    const p = $("#sel-p").value, r = $("#sel-r").value, s = $("#sel-s").value, e = $("#sel-e").value;
+    const key = [p, r, s, e].join("|");
+    let html = "";
+    if(p) html += seg("g", p, "приставка");
+    html += seg("r", r, "корень");
+    if(s) html += seg("b", s, "суффикс");
+    html += e ? seg("p", e, "окончание") : seg("zero", "□", "нулевое окончание");
+    $("#preview-word").innerHTML = html;
+
+    const basis = [p, r, s].filter(Boolean).join(" + ");
+    $("#basis").innerHTML = "Основа слова (всё без окончания): <b>" + basis + "</b>" + (e ? "" : " · окончание нулевое □");
+
+    const fb = $("#feedback");
+    const item = DICT[key];
+    const school = $("#school-builder-word");
+    school.innerHTML = schoolWord(p, r, s, e);
+    school.setAttribute("aria-label", "Школьный разбор: " + (p ? "приставка " + p + ", " : "") + "корень " + r + (s ? ", суффикс " + s : "") + (e ? ", окончание " + e : ", нулевое окончание") + ". Основа " + p + r + s);
+    $("#school-builder-note").textContent = item ? "Значки показывают выбранные части. Линия снизу — основа слова." : "Это схема выбранных частей. Сочетания нет в нашем словарике, поэтому разбор настоящего слова не подтверждён.";
+    if(item){
+      const built = [p, r, s, e].join("");
+      fb.className = "feedback";
+      fb.innerHTML = '<div class="fb-title">' + item.emoji + " Получилось слово «" + built + "»!</div>" +
+                     "<p>" + item.phrase + "</p>" + (item.tip ? "<p style='margin-top:6px'><b>Разбор:</b> " + item.tip + "</p>" : "");
+    } else {
+      // Ищем похожее слово с тем же корнем, чтобы подсказать
+      const sameRoot = Object.keys(DICT).filter(k => k.split("|")[1] === r);
+      const suggestion = sameRoot.length ? " Зато есть слово «" + sameRoot[0].split("|").filter(Boolean).join("") + "» — попробуй его!" : " Попробуй другой набор или нажми «Случайное слово» 🎲";
+      fb.className = "feedback no";
+      fb.innerHTML = '<div class="fb-title">🤔 Такого слова в нашем словарике нет</div>' +
+                     "<p>Ты собрал части в правильном порядке, но этого сочетания нет в нашем небольшом словаре. Возможно, оно существует — проверь в словаре или спроси взрослого." + suggestion + "</p>";
+    }
+  }
+
+  ["p", "r", "s", "e"].forEach(k => $("#sel-" + k).addEventListener("change", render));
+  $("#random-word").addEventListener("click", () => {
+    const keys = Object.keys(DICT);
+    const key = keys[Math.floor(Math.random() * keys.length)];
+    setParts(key.split("|"));
+  });
+  $("#clear-word").addEventListener("click", () => setParts(["по", "сад", "к", "а"]));
+  setParts(["по", "сад", "к", "а"]);
+
+
+  /* Мастерская: последовательный разбор нескольких слов */
+  $("#workshop-example").innerHTML = schoolWord("по", "сад", "к", "а");
+  const PRACTICE = [
+    {word:"домик", q:"Найди окончание в слове «домик».", examples:"Измени слово: домик, домика, домику.", options:["-ик", "-а", "нулевое □"], ok:2, hint:"В форме «домик» после основы нет видимых букв, но в форме «домика» окончание появилось.", explain:"В слове «домик» окончание нулевое □. В других формах оно появляется: домик-а, домик-у."},
+    {word:"домик", q:"Какой корень в слове «домик»?", examples:"Подбери родственные слова: дом, домик, домашний.", options:["-дом-", "-ик-", "-мик-"], ok:0, hint:"Ищи общую часть родственных слов, связанную со смыслом «дом».", explain:"Корень -дом-: он общий в словах дом, домик, домашний."},
+    {word:"домик", q:"Какой суффикс в слове «домик»?", examples:"Корень уже нашли: дом. Сравни: дом → домик.", options:["-дом-", "-ик-", "суффикса нет"], ok:1, hint:"Посмотри после корня дом и перед нулевым окончанием.", explain:"Суффикс -ик- образует ласковое слово «домик»: дом + ик + □."},
+    {word:"переход", q:"Найди корень в слове «переход».", examples:"Родственные слова: ход, вход, выход, переход.", options:["-пере-", "-ход-", "-переход-"], ok:1, hint:"Какая часть повторяется в словах ход, вход, выход?", explain:"Корень -ход-: все эти слова связаны с движением, ходьбой."},
+    {word:"переход", q:"Найди приставку в слове «переход».", examples:"Корень — ход. Сравни слова: ход → переход.", options:["пере-", "-ход-", "приставки нет"], ok:0, hint:"Приставка стоит перед корнем ход.", explain:"Перед корнем ход стоит приставка пере-. Она помогла образовать слово «переход»."},
+    {word:"переход", q:"Есть ли суффикс в слове «переход»?", examples:"Разбор: пере / ход / □.", options:["-од-", "-ход-", "суффикса нет"], ok:2, hint:"После корня ход никаких букв перед окончанием нет.", explain:"Суффикса нет: после корня сразу стоит нулевое окончание □."},
+    {word:"лесной", q:"Найди окончание в слове «лесной».", examples:"Сравни формы: лесной, лесная, лесное.", options:["-н-", "-ой", "-лес-"], ok:1, hint:"Какая часть меняется: -ой, -ая, -ое?", explain:"Окончание -ой: оно меняется в формах лесн-ой, лесн-ая, лесн-ое."},
+    {word:"лесной", q:"Какой корень в слове «лесной»?", examples:"Родственные слова: лес, лесок, лесной.", options:["-лес-", "-н-", "-ой"], ok:0, hint:"Ищи общую часть слов, связанных по смыслу с лесом.", explain:"Корень -лес-: он общий для слов лес, лесок, лесной."},
+    {word:"лесной", q:"Выдели суффикс в слове «лесной».", examples:"Уже знаем: корень лес, окончание ой.", options:["-лес-", "-н-", "-ой"], ok:1, hint:"Что стоит между корнем лес и окончанием ой?", explain:"Между корнем и окончанием стоит суффикс -н-: лес / н / ой."},
+    {word:"лесной", q:"Есть ли приставка в слове «лесной»?", examples:"Корень стоит в начале слова: лес / н / ой.", options:["лес-", "н-", "приставки нет"], ok:2, hint:"Посмотри, есть ли буквы перед корнем лес.", explain:"Перед корнем ничего нет, значит, приставки нет."}
+  ];
+  let pi=0, practiceCorrect=0, practiceAttempts=0, practiceDone=false;
+  function showPractice(){
+    practiceAttempts=0; practiceDone=false;
+    const x=PRACTICE[pi];
+    $("#practice-progress").textContent="Задание " + (pi+1) + " из " + PRACTICE.length + " · слово «" + x.word + "»";
+    $("#practice-score").textContent="С первого раза: " + practiceCorrect;
+    $("#practice-question").textContent=x.q;
+    $("#practice-examples").textContent=x.examples;
+    $("#practice-feedback").textContent="Выбери ответ. Если понадобится помощь, нажми «Подсказка».";
+    $("#practice-next").hidden=true;
+    const box=$("#practice-options");box.innerHTML="";
+    x.options.forEach((text,i)=>{
+      const b=document.createElement("button");b.type="button";b.className="practice-option";b.textContent=text;
+      b.addEventListener("click",()=>{
+        if(practiceDone)return;
+        practiceAttempts++;
+        if(i===x.ok){
+          practiceDone=true;if(practiceAttempts===1)practiceCorrect++;
+          b.classList.add("right");
+          box.querySelectorAll("button").forEach(el=>el.disabled=true);
+          $("#practice-feedback").textContent="✅ Верно! " + x.explain;
+          $("#practice-score").textContent="С первого раза: " + practiceCorrect;
+          $("#practice-next").hidden=false;
+        }else{
+          b.classList.add("wrong");b.disabled=true;
+          $("#practice-feedback").textContent="Попробуй ещё раз. " + x.hint;
+        }
+      });box.appendChild(b);
+    });
+  }
+  $("#practice-hint").addEventListener("click",()=>{if(!practiceDone)$("#practice-feedback").textContent="💡 " + PRACTICE[pi].hint;});
+  $("#practice-next").addEventListener("click",()=>{
+    pi++;
+    if(pi<PRACTICE.length){showPractice();return;}
+    $("#practice-progress").textContent="Все задания пройдены!";
+    $("#practice-score").textContent="С первого раза: " + practiceCorrect + " из " + PRACTICE.length;
+    $("#practice-body").innerHTML='<div class="result"><div class="big">🎉</div><h3>Ты разобрал три слова!</h3><p>С первого раза: ' + practiceCorrect + ' из ' + PRACTICE.length + '. Повторяй, и находить части слова станет ещё легче.</p><button class="btn blue small" id="practice-restart" type="button">🔁 Играть снова</button></div>';
+    $("#practice-restart").addEventListener("click",()=>{pi=0;practiceCorrect=0;restorePractice();showPractice();});
+  });
+  function restorePractice(){
+    $("#practice-body").innerHTML='<div class="practice-question" id="practice-question"></div><div class="practice-examples" id="practice-examples"></div><div class="practice-options" id="practice-options" aria-label="Выбери ответ"></div><div class="practice-feedback" id="practice-feedback" role="status" aria-live="polite"></div><div class="practice-controls"><button class="btn ghost small" id="practice-hint" type="button">💡 Подсказка</button><button class="btn blue small" id="practice-next" type="button" hidden>Дальше →</button></div>';
+    $("#practice-hint").addEventListener("click",()=>{if(!practiceDone)$("#practice-feedback").textContent="💡 " + PRACTICE[pi].hint;});
+    $("#practice-next").addEventListener("click",practiceAdvance);
+  }
+  function practiceAdvance(){
+    pi++;
+    if(pi<PRACTICE.length){showPractice();return;}
+    $("#practice-progress").textContent="Все задания пройдены!";
+    $("#practice-score").textContent="С первого раза: " + practiceCorrect + " из " + PRACTICE.length;
+    $("#practice-body").innerHTML='<div class="result"><div class="big">🎉</div><h3>Ты разобрал три слова!</h3><p>С первого раза: ' + practiceCorrect + ' из ' + PRACTICE.length + '. Повторяй, и находить части слова станет ещё легче.</p><button class="btn blue small" id="practice-restart" type="button">🔁 Играть снова</button></div>';
+    $("#practice-restart").addEventListener("click",()=>{pi=0;practiceCorrect=0;restorePractice();showPractice();});
+  }
+  showPractice();
+
+
+
+  /* Рассматриваем семейства: новые слова рядом с формами того же слова */
+  const FAMILIES = [
+    {name:"Дом", emoji:"🏠", root:"дом", intro:"Все новые слова этой семьи связаны с домом: жильём или тем, что к нему относится.", rows:[
+      {p:"",r:"дом",s:"",e:"", type:"original", label:"Начальное слово", detail:"Дом — место, где живут. Корень дом; окончание нулевое □."},
+      {p:"",r:"дом",s:"ик",e:"", type:"new", label:"Новое слово · суффикс", detail:"Домик — маленький дом. Добавили суффикс -ик-; окончание нулевое □."},
+      {p:"",r:"дом",s:"ищ",e:"е", type:"new", label:"Новое слово · суффикс", detail:"Домище — большой дом. Суффикс -ищ- и окончание -е."},
+      {p:"",r:"дом",s:"",e:"а", type:"form", label:"Форма слова «дом»", detail:"Нет дома. Меняется окончание: дом□ → дом-а. Это тот же дом, не новое слово."},
+      {p:"",r:"дом",s:"ик",e:"у", type:"form", label:"Форма слова «домик»", detail:"Подошли к домику. Меняется окончание: домик□ → домик-у. Суффикс -ик- остаётся."}
+    ]},
+    {name:"Лес", emoji:"🌲", root:"лес", intro:"Лесок, лесник и лесной — разные слова, связанные с лесом.", rows:[
+      {p:"",r:"лес",s:"",e:"",type:"original",label:"Начальное слово",detail:"Лес — место, где растёт много деревьев. Окончание нулевое □."},
+      {p:"",r:"лес",s:"ок",e:"",type:"new",label:"Новое слово · суффикс",detail:"Лесок — небольшой лес. Добавили суффикс -ок-."},
+      {p:"",r:"лес",s:"ник",e:"",type:"new",label:"Новое слово · суффикс",detail:"Лесник — человек, который заботится о лесе. Суффикс -ник-."},
+      {p:"",r:"лес",s:"н",e:"ой",type:"new",label:"Новое слово · суффикс",detail:"Лесной — связанный с лесом: лесной зверёк. Суффикс -н-, окончание -ой."},
+      {p:"пере",r:"лес",s:"ок",e:"",type:"new",label:"Новое слово · приставка и суффикс",detail:"Перелесок — небольшой участок леса. Приставка пере-, суффикс -ок-, окончание нулевое □."},
+      {p:"",r:"лес",s:"",e:"а",type:"form",label:"Форма слова «лес»",detail:"Опушка леса. Лес□ → лес-а: изменилось окончание, это форма слова «лес»."},
+      {p:"",r:"лес",s:"н",e:"ая",type:"form",label:"Форма слова «лесной»",detail:"Лесная тропинка. Лесн-ой → лесн-ая: меняется окончание, слово остаётся тем же."}
+    ]},
+    {name:"Ход",emoji:"🚶",root:"ход",intro:"Эти слова связаны с ходьбой и движением. Разные приставки помогают образовать разные слова.",rows:[
+      {p:"",r:"ход",s:"",e:"",type:"original",label:"Начальное слово",detail:"Ход — движение. Корень ход, окончание нулевое □."},
+      {p:"в",r:"ход",s:"",e:"",type:"new",label:"Новое слово · приставка",detail:"Вход — место, где входят. Приставка в- перед корнем."},
+      {p:"вы",r:"ход",s:"",e:"",type:"new",label:"Новое слово · приставка",detail:"Выход — место, где выходят. Приставка вы- меняет значение."},
+      {p:"пере",r:"ход",s:"",e:"",type:"new",label:"Новое слово · приставка",detail:"Переход — место, где переходят. Приставка пере- перед корнем ход."},
+      {p:"на",r:"ход",s:"к",e:"а",type:"new",label:"Новое слово · приставка и суффикс",detail:"Находка — то, что нашли. Приставка на-, суффикс -к-, окончание -а."},
+      {p:"пере",r:"ход",s:"",e:"а",type:"form",label:"Форма слова «переход»",detail:"До перехода. Переход□ → переход-а: изменилось окончание, а не значение слова."}
+    ]},
+    {name:"Сад",emoji:"🌱",root:"сад",intro:"Здесь слова объединяет корень сад. В этом примере «посадка» означает посадку растений.",rows:[
+      {p:"",r:"сад",s:"",e:"",type:"original",label:"Начальное слово",detail:"Сад — место, где растут деревья и цветы. Окончание нулевое □."},
+      {p:"",r:"сад",s:"ик",e:"",type:"new",label:"Новое слово · суффикс",detail:"Садик — маленький сад. Суффикс -ик-."},
+      {p:"",r:"сад",s:"ов",e:"ый",type:"new",label:"Новое слово · суффикс",detail:"Садовый — связанный с садом: садовый цветок. Суффикс -ов-, окончание -ый."},
+      {p:"по",r:"сад",s:"к",e:"а",type:"new",label:"Новое слово · приставка и суффикс",detail:"Посадка семян — когда их сажают. Приставка по-, суффикс -к-, окончание -а."},
+      {p:"",r:"сад",s:"",e:"у",type:"form",label:"Форма слова «сад»",detail:"Гуляем по саду. Сад□ → сад-у: меняется окончание, это тот же сад."},
+      {p:"по",r:"сад",s:"к",e:"и",type:"form",label:"Форма слова «посадка»",detail:"Время посадки. Посадк-а → посадк-и: изменилось окончание, слово остаётся тем же."}
+    ]},
+    {name:"Гриб",emoji:"🍄",root:"гриб",intro:"Грибок и грибной связаны по смыслу с грибом; окончание помогает изменять форму слова.",rows:[
+      {p:"",r:"гриб",s:"",e:"",type:"original",label:"Начальное слово",detail:"Гриб. Корень гриб, окончание нулевое □."},
+      {p:"",r:"гриб",s:"ок",e:"",type:"new",label:"Новое слово · суффикс",detail:"Грибок — маленький гриб. Добавили суффикс -ок-."},
+      {p:"",r:"гриб",s:"н",e:"ой",type:"new",label:"Новое слово · суффикс",detail:"Грибной — связанный с грибами: грибной суп. Суффикс -н-, окончание -ой."},
+      {p:"",r:"гриб",s:"",e:"а",type:"form",label:"Форма слова «гриб»",detail:"Шляпка гриба. Гриб□ → гриб-а: изменилось окончание."},
+      {p:"",r:"гриб",s:"н",e:"ая",type:"form",label:"Форма слова «грибной»",detail:"Грибная полянка. Грибн-ой → грибн-ая: окончание изменилось, а слово то же."}
+    ]}
+  ];
+  let familySelected=0, familySigns=true;
+  function renderFamilyExplorer(){
+    const family=FAMILIES[familySelected], tabs=$("#family-tabs"), table=$("#family-table");
+    tabs.innerHTML="";
+    FAMILIES.forEach((item,i)=>{
+      const button=document.createElement("button");button.type="button";button.className="family-tab";
+      button.textContent=item.emoji + " " + item.name;
+      button.setAttribute("aria-pressed",String(i===familySelected));
+      button.addEventListener("click",()=>{familySelected=i;renderFamilyExplorer();$("#family-tabs").querySelectorAll("button")[i].focus();});
+      tabs.appendChild(button);
+    });
+    $("#family-family-description").textContent=family.emoji + " Семья «" + family.name.toLowerCase() + "»: общий корень -" + family.root + "-. " + family.intro;
+    table.innerHTML="";
+    family.rows.forEach(row=>{
+      const item=document.createElement("div");item.className="family-row";
+      const spoken=(row.p?"приставка "+row.p+", ":"")+"корень "+row.r+(row.s?", суффикс "+row.s:"")+(row.e?", окончание "+row.e:", нулевое окончание");
+      item.innerHTML='<div class="school-word" role="img"></div><div class="family-explain"><span class="family-kind '+row.type+'"></span><p></p></div>';
+      const word=item.querySelector(".school-word");word.innerHTML=schoolWord(row.p,row.r,row.s,row.e);word.setAttribute("aria-label",row.p+row.r+row.s+row.e+": "+spoken);
+      item.querySelector(".family-kind").textContent=row.label;item.querySelector(".family-explain p").textContent=row.detail;
+      table.appendChild(item);
+    });
+  }
+  $("#family-symbol-toggle").addEventListener("click",function(){
+    familySigns=!familySigns;
+    $("#family-explorer").classList.toggle("signs-off",!familySigns);
+    this.setAttribute("aria-pressed",String(familySigns));
+    this.textContent=familySigns ? "✏️ Значки: включены" : "✏️ Значки: выключены";
+  });
+  renderFamilyExplorer();
+
+  /* Игра про однокоренные слова */
+  const FAMILY_QUIZ = [
+    {q:"Какое слово однокоренное слову «лес»?", choices:["лесник", "лестница", "поле"], correct:0, hint:"Вспомни, кто работает в лесу и заботится о нём.", why:"Лесник связан с лесом. Общий корень — -лес-. «Лестница» похожа буквами, но не связана с лесом по смыслу."},
+    {q:"Какое слово — родственник слова «дом»?", choices:["дым", "домик", "доска"], correct:1, hint:"Как ласково назвать маленький дом?", why:"Домик — маленький дом. Общий корень -дом-."},
+    {q:"Выбери слово, родственное слову «кот».", choices:["кота", "котёнок", "кит"], correct:1, hint:"Нужно другое слово, а не просто другая форма слова «кот».", why:"Котёнок — детёныш кота: это родственные слова. «Кота» — форма слова «кот»."},
+    {q:"Какая пара состоит из однокоренных слов?", choices:["книга — книгу", "лес — лесной", "гора — горит"], correct:1, hint:"Нужны разные слова с общим корнем и общим смыслом.", why:"Лес и лесной — разные слова с корнем -лес-. Книга и книгу — формы одного слова, а гора и горит не родственники."},
+    {q:"Какое слово НЕ родственник слову «вода»?", choices:["водный", "водичка", "водитель"], correct:2, hint:"Подумай, какое слово не связано по смыслу с водой.", why:"Водитель — тот, кто водит машину, а не слово из семьи воды. Похожих букв недостаточно."},
+    {q:"Слова «снег» и «снежный» — родственники?", choices:["Да, связаны по смыслу", "Нет, буквы совсем не одинаковые", "Это формы одного слова"], correct:0, hint:"Снежный значит «связанный со снегом». Что произошло с буквами г и ж?", why:"Да: снег и снежный связаны по смыслу. В корне чередуются г и ж."},
+    {q:"Найди слово с тем же корнем, что и «выход».", choices:["вход", "выгода", "выдра"], correct:0, hint:"Подумай о словах, связанных с движением: вход и выход.", why:"Вход и выход имеют общий корень -ход-, но разные приставки."},
+    {q:"Что общего у однокоренных слов?", choices:["Только первая буква", "Корень и связь по смыслу", "Только одинаковое окончание"], correct:1, hint:"Проверяй не только буквы, но и значение слов.", why:"Однокоренные слова имеют общий корень и связаны по смыслу. Приставки, суффиксы и окончания могут различаться."}
+  ];
+  let familyIndex=0, familyStars=0, familyTries=0, familyAnswered=false;
+  function renderFamily(){
+    familyTries=0;familyAnswered=false;
+    const x=FAMILY_QUIZ[familyIndex];
+    $("#family-counter").textContent="Игра «Найди родственника» · вопрос " + (familyIndex+1) + " из " + FAMILY_QUIZ.length;
+    $("#family-score").textContent="С первого раза: " + familyStars;
+    const body=$("#family-game-body");
+    body.innerHTML='<div class="practice-question" id="family-question"></div><div class="practice-options" id="family-options" aria-label="Варианты ответа"></div><div class="practice-feedback" id="family-feedback" role="status" aria-live="polite">Выбери ответ. Если ошибёшься, можно попробовать снова.</div><div class="practice-controls family-controls"><button class="btn ghost small" type="button" id="family-hint">💡 Подсказка</button><button class="btn blue small" type="button" id="family-next" hidden>Дальше →</button></div>';
+    $("#family-question").textContent=x.q;
+    const options=$("#family-options");
+    x.choices.forEach((choice,i)=>{
+      const b=document.createElement("button");b.type="button";b.className="family-option";b.textContent=choice;
+      b.addEventListener("click",()=>{
+        if(familyAnswered)return;familyTries++;
+        if(i===x.correct){
+          familyAnswered=true;if(familyTries===1)familyStars++;
+          b.classList.add("right");options.querySelectorAll("button").forEach(button=>button.disabled=true);
+          $("#family-feedback").textContent="✅ Верно! " + x.why;
+          $("#family-score").textContent="С первого раза: " + familyStars;
+          $("#family-next").hidden=false;
+        }else{
+          b.classList.add("wrong");b.disabled=true;
+          $("#family-feedback").textContent="Попробуй ещё раз. " + x.hint;
+        }
+      });options.appendChild(b);
+    });
+    $("#family-hint").addEventListener("click",()=>{if(!familyAnswered)$("#family-feedback").textContent="💡 " + x.hint;});
+    $("#family-next").addEventListener("click",()=>{
+      familyIndex++;
+      if(familyIndex<FAMILY_QUIZ.length){renderFamily();return;}
+      $("#family-counter").textContent="Игра завершена!";
+      $("#family-score").textContent="С первого раза: " + familyStars + " из " + FAMILY_QUIZ.length;
+      body.innerHTML='<div class="result"><div class="big">🌳</div><h3>Ты нашёл слова-родственники!</h3><p>С первого раза: ' + familyStars + ' из ' + FAMILY_QUIZ.length + '. Запомни: общий корень и связь по смыслу важны вместе.</p><button type="button" class="btn blue small" id="family-restart">🔁 Играть ещё раз</button></div>';
+      $("#family-restart").addEventListener("click",()=>{familyIndex=0;familyStars=0;renderFamily();});
+    });
+  }
+  renderFamily();
+
+  /* ============ 4. Викторина ============ */
+  const QUIZ = [
+    {
+      q: 'В слове <span class="hl g">пере</span>ход зелёная часть — это…',
+      opts: ["Приставка", "Корень", "Суффикс", "Окончание"],
+      ok: 0,
+      why: "Верно! Приставка стоит <b>перед</b> корнем: <b>пере-</b> + <b>-ход-</b> + □. Она подсказывает: идём через что-то 🌉"
+    },
+    {
+      q: 'В слове <span class="hl r">дом</span>ик красная часть — это…',
+      opts: ["Приставка", "Корень", "Суффикс", "Окончание"],
+      ok: 1,
+      why: "Конечно, корень! Проверим родственников: <b>дом</b>, <b>дом</b>ик, <b>дом</b>ашний. Общий смысл про дом 🏠"
+    },
+    {
+      q: 'В слове кот<span class="hl b">ик</span> синяя часть — это…',
+      opts: ["Приставка", "Корень", "Суффикс", "Окончание"],
+      ok: 2,
+      why: "Это суффикс <b>-ик-</b>. Он стоит после корня <b>-кот-</b> и делает слово ласковым 🐾 Окончание тут нулевое □."
+    },
+    {
+      q: 'В слове книг<span class="hl p">ой</span> фиолетовая часть — это…',
+      opts: ["Приставка", "Корень", "Суффикс", "Окончание"],
+      ok: 3,
+      why: "Окончание! Поменяй слово: книг<b>а</b>, книг<b>и</b>, книг<b>у</b>, книг<b>ой</b>. Корень <b>-книг-</b> не меняется, меняется хвостик 🎀"
+    },
+    {
+      q: "Какая часть есть в <b>любом</b> слове?",
+      opts: ["Приставка", "Корень", "Суффикс", "Окончание"],
+      ok: 1,
+      why: "Корень ⭐ Без корня слова не бывает! В слове «дом» нет приставки и суффикса, окончание невидимое □, а корень <b>-дом-</b> есть."
+    },
+    {
+      q: 'В слове лес<span class="hl b">н</span>ой синяя буква — это…',
+      opts: ["Приставка", "Корень", "Суффикс", "Окончание"],
+      ok: 2,
+      why: "Суффикс <b>-н-</b>: он стоит <b>после</b> корня <b>-лес-</b> и <b>перед</b> окончанием <b>-ой</b>. Получается лес/н/ой 🐿️"
+    },
+    {
+      q: 'В слове <span class="hl g">вы</span>ход зелёная часть — это…',
+      opts: ["Приставка", "Корень", "Суффикс", "Окончание"],
+      ok: 0,
+      why: "Приставка <b>вы-</b>! Она говорит «наружу»: <b>вы</b>ход ↗️, а <b>в</b>ход 🚪 — наоборот, внутрь."
+    },
+    {
+      q: 'У слова «стол» окончания не видно. Как оно называется?',
+      opts: ["Пустое", "Нулевое (□)", "Скрытое", "Так не бывает"],
+      ok: 1,
+      why: "Нулевое! Пишем квадратик: стол<b>□</b>. Проверка: стол<b>□</b> → стол<b>а</b> → стол<b>у</b>. Окончание появилось, значит, оно было, просто невидимое 🤫"
+    }
+  ];
+
+  let qi = 0, stars = 0, answered = false;
+
+  function showQuestion(){
+    answered = false;
+    const item = QUIZ[qi];
+    $("#quiz-counter").textContent = "Вопрос " + (qi + 1) + " из " + QUIZ.length;
+    $("#quiz-stars").textContent = "⭐ " + stars;
+    $("#quiz-score").textContent = "Набрано звёзд: " + stars;
+    $("#quiz-question").innerHTML = item.q;
+    $("#quiz-bar").style.width = (qi / QUIZ.length * 100) + "%";
+    $("#quiz-progress").setAttribute("aria-valuenow", String(qi));
+    $("#quiz-feedback").className = "quiz-feedback";
+    $("#quiz-feedback").innerHTML = "";
+    $("#quiz-next").style.display = "none";
+    $("#quiz-next").textContent = (qi === QUIZ.length - 1) ? "Узнать результат 🏁" : "Дальше →";
+    const box = $("#quiz-options");
+    box.innerHTML = "";
+    item.opts.forEach((text, idx) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "opt";
+      b.innerHTML = text + '<span class="mark"></span>';
+      b.addEventListener("click", () => answer(idx, b));
+      box.appendChild(b);
+    });
+  }
+
+  function answer(idx, btn){
+    if(answered) return;
+    answered = true;
+    const item = QUIZ[qi];
+    $$(".opt", $("#quiz-options")).forEach((b, i) => {
+      b.disabled = true;
+      if(i === item.ok){ b.classList.add("correct"); $(".mark", b).textContent = "✓"; }
+      else if(i === idx){ b.classList.add("wrong"); $(".mark", b).textContent = "✗"; }
+    });
+    if(idx === item.ok) stars++;
+    $("#quiz-stars").textContent = "⭐ " + stars;
+    $("#quiz-score").textContent = "Набрано звёзд: " + stars;
+    const fb = $("#quiz-feedback");
+    fb.className = "quiz-feedback show";
+    fb.innerHTML = (idx === item.ok ? "<b>Молодец! 🎉</b> " : "<b>Почти! 🙌</b> ") + item.why;
+    $("#quiz-bar").style.width = ((qi + 1) / QUIZ.length * 100) + "%";
+    $("#quiz-progress").setAttribute("aria-valuenow", String(qi + 1));
+    $("#quiz-next").style.display = "inline-flex";
+    $("#quiz-next").focus();
+  }
+
+  function showResult(){
+    const body = $("#quiz-body");
+    $("#quiz-bar").style.width = "100%";
+    $("#quiz-counter").textContent = "Готово!";
+    const mark = stars >= 7 ? "🏆" : (stars >= 4 ? "🌟" : "💪");
+    const title = stars >= 7 ? "Ты — знаток слова!" : (stars >= 4 ? "Хорошая работа!" : "Давай ещё разок!");
+    const text = stars >= 7
+      ? "Ты отлично отличаешь приставку от суффикса и знаешь секрет невидимого окончания □."
+      : "Повтори памятку ниже и попробуй ещё раз — каждый раз получается лучше!";
+    let conf = '<div class="confetti">';
+    for(let i = 0; i < 12; i++){
+      conf += '<i style="left:' + (5 + i * 8) + '%;animation-delay:' + (i * 0.12) + 's">⭐</i>';
+    }
+    conf += "</div>";
+    body.innerHTML = conf +
+      '<div class="result"><div class="big">' + mark + '</div>' +
+      "<h3>" + title + "</h3>" +
+      "<p>" + stars + " из " + QUIZ.length + " звёзд. " + text + "</p>" +
+      '<button class="btn" type="button" id="quiz-restart">🔁 Пройти ещё раз</button></div>';
+    $("#quiz-restart").addEventListener("click", () => {
+      qi = 0; stars = 0;
+      $("#quiz-body").innerHTML =
+        '<div class="question" id="quiz-question"></div>' +
+        '<div class="options" id="quiz-options"></div>' +
+        '<div class="quiz-feedback" id="quiz-feedback" role="status" aria-live="polite"></div>' +
+        '<div class="quiz-bottom"><span class="score" id="quiz-score">Набрано звёзд: 0</span>' +
+        '<button class="btn small" id="quiz-next" type="button" style="display:none">Дальше →</button></div>';
+      $("#quiz-next").addEventListener("click", nextQuestion);
+      showQuestion();
+    });
+  }
+
+  function nextQuestion(){
+    qi++;
+    if(qi >= QUIZ.length) showResult();
+    else showQuestion();
+  }
+
+  $("#quiz-next").addEventListener("click", nextQuestion);
+  showQuestion();
+})();
+</script>
+</body>
+</html>
